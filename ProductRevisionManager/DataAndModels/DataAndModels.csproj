@@ -14,8 +14,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DataAndModels\DataAndModels.csproj" />
-  </ItemGroup>
-
 </Project>

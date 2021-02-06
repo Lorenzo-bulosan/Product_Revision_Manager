@@ -13,7 +13,7 @@ namespace UnitTests
         [Test]
         public void Test1()
         {
-            int result = Program.Test();
+            int result = BussinessMain.Test();
             Assert.AreEqual(0, result);
         }
     }

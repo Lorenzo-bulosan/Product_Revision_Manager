@@ -2,7 +2,7 @@
 
 namespace BussinessManager
 {
-    public class Program
+    public class BussinessMain
     {
         static void Main(string[] args)
         {
