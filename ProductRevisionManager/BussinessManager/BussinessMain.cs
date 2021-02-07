@@ -1,4 +1,7 @@
 ﻿using System;
+using DataAndModels;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BussinessManager
 {
@@ -14,10 +17,29 @@ namespace BussinessManager
             return 0;
         }
 
+        public void addingLorenzo()
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                Console.WriteLine("Creating some customers");
+                db.Add(new Customer() { CustomerId = "0", City = "London", ContactName = "Lorenzo", PostalCode = "W3 6hg", Country = "Uk" });
+                db.SaveChanges();
+            }
+        }
+
         public string TestString()
         {
             return "From inside main";
         }
-        
+
+        public string RetrieveAll()
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                var res = db.Customers.Where(c => c.CustomerId == "0");
+                return res.FirstOrDefault().ContactName;
+            }
+        }
+
     }
 }

@@ -31,6 +31,8 @@ namespace ProductRevisionAppWPF
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             LabelTest.Content = _instance.TestString();
+            LabelName.Content = _instance.RetrieveAll();
         }
+
     }
 }

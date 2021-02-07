@@ -11,7 +11,7 @@ namespace DataAndModels
     {
         public static MonokayuDbContext Instance { get; } = new MonokayuDbContext();
 
-        public DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
