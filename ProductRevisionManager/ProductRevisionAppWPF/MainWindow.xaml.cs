@@ -32,7 +32,12 @@ namespace ProductRevisionAppWPF
         {
             LabelTest.Content = _instance.TestString();
             LabelName.Content = _instance.RetrieveAll();
+            ListBoxTasks.ItemsSource = _instance.RetrieveAll();
         }
+        
+        private void ListBox_TaskSelected(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
 
+        }
     }
 }

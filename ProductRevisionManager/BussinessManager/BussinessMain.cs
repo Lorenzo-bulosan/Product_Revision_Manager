@@ -32,12 +32,12 @@ namespace BussinessManager
             return "From inside main";
         }
 
-        public string RetrieveAll()
+        public List<Customer> RetrieveAll()
         {
             using (var db = new MonokayuDbContext())
             {
-                var res = db.Customers.Where(c => c.CustomerId == "0");
-                return res.FirstOrDefault().ContactName;
+                var res = db.Customers.ToList();
+                return res;
             }
         }
 
