@@ -21,19 +21,19 @@
     <!--Styles-->
     <Window.Resources>
         <DataTemplate x:Key="listBoxTemplate">
-            <StackPanel Margin="3">
-                <DockPanel>
-                    <TextBlock FontWeight="Bold" Text="Name:" DockPanel.Dock="Left" Margin="5,0,10,0" />
-                    <TextBlock Text="" />
-                    <TextBlock Text="{Binding ContactName}" Foreground="Green" FontWeight="Bold" />
-                </DockPanel>
-                <DockPanel>
-                    <TextBlock FontWeight="Bold" Text="Address:" Foreground="DarkOrange" DockPanel.Dock="Left" Margin="5,0,5,0" />
-                    <TextBlock Text="{Binding City}" />
-                    <TextBlock Text=", " />
-                    <TextBlock Text="{Binding Country}" />
-                </DockPanel>
-            </StackPanel>
+            <Border BorderThickness="2" BorderBrush="#FF673AB7" Background="white" CornerRadius="10,10,10,10">
+                <StackPanel Margin="3">
+                    <DockPanel Margin="4">                    
+                        <TextBlock FontWeight="Bold" Text="Task Title:" DockPanel.Dock="Left" Margin="5,0,10,0" />
+                        <TextBlock Text="Lorem impsum Lorem impsum Lorem impsum" />
+                        <TextBlock Text="{Binding ContactName}" Foreground="#FF673AB7" FontWeight="Bold" />
+                    </DockPanel>
+                    <DockPanel>
+                        <TextBlock FontWeight="Bold" Text="issuer:" DockPanel.Dock="Left" Margin="5,0,10,0" />
+                        <TextBlock Text="{Binding ContactName}" Foreground="#FF673AB7" FontWeight="Bold" />
+                    </DockPanel>
+                </StackPanel>
+            </Border>
         </DataTemplate>
     </Window.Resources>
 

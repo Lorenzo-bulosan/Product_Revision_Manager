@@ -10,6 +10,9 @@ namespace BussinessManager
         static void Main(string[] args)
         {
             Console.WriteLine("Product Revision Management App");
+
+            addingTestData();
+
         }
 
         public static int Test()
@@ -17,12 +20,14 @@ namespace BussinessManager
             return 0;
         }
 
-        public void addingLorenzo()
+        public static void addingTestData()
         {
             using (var db = new MonokayuDbContext())
             {
                 Console.WriteLine("Creating some customers");
-                db.Add(new Customer() { CustomerId = "0", City = "London", ContactName = "Lorenzo", PostalCode = "W3 6hg", Country = "Uk" });
+                db.Add(new Customer() { CustomerId = "1", City = "London", ContactName = "Lorenzo", PostalCode = "W3 6hg", Country = "Uk" });
+                db.Add(new Customer() { CustomerId = "2", City = "London", ContactName = "Lorenzo", PostalCode = "W3 6hg", Country = "Uk" });
+                db.Add(new Customer() { CustomerId = "3", City = "London", ContactName = "Lorenzo", PostalCode = "W3 6hg", Country = "Uk" });
                 db.SaveChanges();
             }
         }
