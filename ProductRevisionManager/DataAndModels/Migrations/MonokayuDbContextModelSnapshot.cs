@@ -48,9 +48,6 @@ namespace DataAndModels.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("RevisionID")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 
@@ -71,7 +68,7 @@ namespace DataAndModels.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("ProjectID")
+                    b.Property<int>("ProjectID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("deadline")
@@ -123,7 +120,9 @@ namespace DataAndModels.Migrations
                 {
                     b.HasOne("DataAndModels.Project", "Project")
                         .WithMany("Revisions")
-                        .HasForeignKey("ProjectID");
+                        .HasForeignKey("ProjectID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Project");
                 });

@@ -1,4 +1,5 @@
 ﻿
-Drop Table RevisionRounds;
-Drop Table Projects;
-Drop Table Users;
+Use Monokayu;
+Delete from Revisions;
+Delete from Projects;
+Delete from Users;

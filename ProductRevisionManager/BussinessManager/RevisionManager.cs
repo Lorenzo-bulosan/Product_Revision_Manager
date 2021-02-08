@@ -17,8 +17,8 @@ namespace BussinessManager
                 Console.WriteLine("Creating some Users");
 
                 db.Add(new User() { firstName = "Lorenzo0", lastName = "Bulosan", securityLevel = 0, password = "12345678" });
-                db.Add(new User() { firstName = "Lorenzo1", lastName = "Bulosan", securityLevel = 0, password = "12345678" });
-                db.Add(new User() { firstName = "Lorenzo2", lastName = "Bulosan", securityLevel = 0, password = "12345678" });
+                db.Add(new User() { firstName = "Angel", lastName = "Hidalgo", securityLevel = 1, password = "12345678" });
+                db.Add(new User() { firstName = "Taner", lastName = "Cagali", securityLevel = 1, password = "12345678" });
 
                 db.SaveChanges();
             }
@@ -30,19 +30,19 @@ namespace BussinessManager
             {
                 Console.WriteLine("Creating some projects");
 
-                db.Add(new Project() { projectName = "SomethingAboutBirds", UserID = 1 });
-                db.Add(new Project() { projectName = "SomethingAboutCats", UserID = 2 });
-                db.Add(new Project() { projectName = "SomethingAboutDogs", UserID = 2 }); 
+                db.Add(new Project() { projectName = "project1", UserID = 13 });
+                db.Add(new Project() { projectName = "project2", UserID = 14 });
+                db.Add(new Project() { projectName = "project3", UserID = 14 }); 
                 db.SaveChanges();
             }
         }
 
-        public static void GenerateRevisionRoundTestData(int id)
+        public static void GenerateRevisionForProjectID(int projectId)
         {
             using (var db = new MonokayuDbContext())
             {
-                Console.WriteLine("Creating some Revision rounds");
-                db.Add(new Revision() { deadline = new DateTime(), RevisionID = id});
+                Console.WriteLine($"Creating some Revision for projectID: {projectId}");
+                db.Add(new Revision() { deadline = new DateTime(), ProjectID = projectId });
                 db.SaveChanges();
             }
         }
@@ -69,7 +69,7 @@ namespace BussinessManager
             }
         }
 
-        public static void GetUserAndAProject(int id)
+        public static void GetProjectInfoFromUserID(int id)
         {
             using (var db = new MonokayuDbContext())
             {
@@ -104,8 +104,8 @@ namespace BussinessManager
                         (u, p) => new { p, u }
                     ).Join(
                         db.Revisions,
-                        u => u.p.RevisionID,
-                        rr => rr.RevisionID,
+                        u => u.p.ProjectID,
+                        rr => rr.ProjectID,
                         (rr, u) => new { u, rr }
                     );
 

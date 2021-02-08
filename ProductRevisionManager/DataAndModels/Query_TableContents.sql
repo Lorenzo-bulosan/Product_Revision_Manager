@@ -1,4 +1,4 @@
 ﻿
 SELECT * FROM Users;
 SELECT * FROM Projects;
-SELECT * FROM RevisionRounds;
+SELECT * FROM Revisions;

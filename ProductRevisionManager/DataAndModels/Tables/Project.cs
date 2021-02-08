@@ -20,13 +20,11 @@ namespace DataAndModels
 
         public string projectName { get; set; }
 
-        // associations
         [ForeignKey("User")]
         public int UserID { get; set; }
-        public virtual User User { get; set; }
 
-        [ForeignKey("Revision")]
-        public int RevisionID { get; set; }
+        // associations
+        public virtual User User { get; set; }
         public virtual ICollection<Revision> Revisions { get; set; }
     }
 }

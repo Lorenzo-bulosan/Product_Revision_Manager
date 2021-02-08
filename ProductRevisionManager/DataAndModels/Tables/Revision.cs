@@ -20,6 +20,8 @@ namespace DataAndModels
 
         public DateTime deadline { get; set; }
 
+        [ForeignKey("Project")]
+        public int ProjectID { get; set; }
         // associations
         public virtual Project Project { get; set; } 
     }
