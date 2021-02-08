@@ -14,13 +14,69 @@ namespace BussinessManager
         {
             using (var db = new MonokayuDbContext())
             {
-                Console.WriteLine("Creating some Users and projects");
+                Console.WriteLine("Creating some Users");
 
                 db.Add(new User() { firstName = "Lorenzo0", lastName = "Bulosan", securityLevel = 0, password = "12345678" });
                 db.Add(new User() { firstName = "Lorenzo1", lastName = "Bulosan", securityLevel = 0, password = "12345678" });
                 db.Add(new User() { firstName = "Lorenzo2", lastName = "Bulosan", securityLevel = 0, password = "12345678" });
 
                 db.SaveChanges();
+            }
+        }
+
+        public static void GenerateProjectTestData()
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                Console.WriteLine("Creating some projects");
+
+                db.Add(new Project() { projectName = "SomethingAboutBirds", UserID = 1 });
+                db.Add(new Project() { projectName = "SomethingAboutCats", UserID = 2 });
+                db.Add(new Project() { projectName = "SomethingAboutDogs", UserID = 2 }); 
+                db.SaveChanges();
+            }
+        }
+
+        public static void GetUsersAndTheirProjects()
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                Console.WriteLine("\nRetrieving all users and their projects");
+                var userProjectsQuery = 
+                    db.Users
+                    .Join(
+                        db.Projects ,
+                        u => u.UserID,
+                        p => p.UserID,
+                        (u, p) => new {p, u}
+                    );
+
+                foreach (var item in userProjectsQuery)
+                {
+                    Console.WriteLine($"Users {item.u.firstName} of ID: {item.u.UserID}");
+                    Console.WriteLine($"Projects of this user: {item.p.projectName}");
+                }
+            }
+        }
+
+        public static void GetUserAndAProject(int id)
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                Console.WriteLine("\nRetrieving some specific data");
+                var userProjectQuery =
+                    db.Users
+                    .Join(
+                        db.Projects,
+                        u => u.UserID,
+                        p => p.UserID,
+                        (u, p) => new { p, u }
+                    ).Where(user => user.u.UserID == id);
+
+                foreach (var userProject in userProjectQuery)
+                {
+                    Console.WriteLine($"user {userProject.u.UserID} has these projects {userProject.p.projectName}");
+                }
             }
         }
 
