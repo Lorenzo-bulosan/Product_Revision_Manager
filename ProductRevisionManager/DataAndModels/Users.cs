@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace DataAndModels
 {
-    public partial class Users
+    public partial class User
     {
-        public Users()
+        public User()
         {
             Projects = new HashSet<Project>();
         }

@@ -15,7 +15,7 @@ namespace DataAndModels
         public virtual DbSet<Customer> Customers { get; set; }
 
         // tables
-        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)

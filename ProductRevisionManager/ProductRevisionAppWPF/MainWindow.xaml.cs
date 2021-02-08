@@ -20,11 +20,11 @@ namespace ProductRevisionAppWPF
     public partial class MainWindow : Window
     {
 
-        private BussinessMain _instance;
+        private RevisionManager _instance;
 
         public MainWindow()
         {
-            _instance = new BussinessMain();
+            _instance = new RevisionManager();
             InitializeComponent();
         }
 

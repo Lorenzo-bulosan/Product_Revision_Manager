@@ -22,6 +22,6 @@ namespace DataAndModels
 
         // associations
         public string UserID { get; set; }
-        public virtual Users User { get; set; } 
+        public virtual User User { get; set; } 
     }
 }
