@@ -13,8 +13,10 @@ namespace BussinessManager
 
             //RevisionManager.GenerateUserTestData();
             //RevisionManager.GenerateProjectTestData();
-            RevisionManager.GetUsersAndTheirProjects();
-            RevisionManager.GetUserAndAProject(2);
+            //RevisionManager.GetUsersAndTheirProjects();
+            //RevisionManager.GetUserAndAProject(2);
+            //RevisionManager.GenerateRevisionRoundTestData(0);
+            RevisionManager.GetProjectsAndTheirRevisionsFromUsers();
         }
 
     }

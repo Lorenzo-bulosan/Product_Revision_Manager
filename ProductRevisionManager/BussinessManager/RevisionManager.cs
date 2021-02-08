@@ -37,6 +37,16 @@ namespace BussinessManager
             }
         }
 
+        public static void GenerateRevisionRoundTestData(int id)
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                Console.WriteLine("Creating some Revision rounds");
+                db.Add(new Revision() { deadline = new DateTime(), RevisionID = id});
+                db.SaveChanges();
+            }
+        }
+
         public static void GetUsersAndTheirProjects()
         {
             using (var db = new MonokayuDbContext())
@@ -76,6 +86,34 @@ namespace BussinessManager
                 foreach (var userProject in userProjectQuery)
                 {
                     Console.WriteLine($"user {userProject.u.UserID} has these projects {userProject.p.projectName}");
+                }
+            }
+        }
+
+        public static void GetProjectsAndTheirRevisionsFromUsers()
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                Console.WriteLine("\nRetrieving all users and their projects");
+                var projectRevisionQuery =
+                    db.Users
+                    .Join(
+                        db.Projects,
+                        u => u.UserID,
+                        p => p.UserID,
+                        (u, p) => new { p, u }
+                    ).Join(
+                        db.Revisions,
+                        u => u.p.RevisionID,
+                        rr => rr.RevisionID,
+                        (rr, u) => new { u, rr }
+                    );
+
+                foreach (var item in projectRevisionQuery)
+                {
+                    Console.WriteLine($"Users {item.rr.u.firstName} of ID: {item.rr.u.UserID}");
+                    Console.WriteLine($"Projects of this user: {item.rr.p.ProjectID}");
+                    Console.WriteLine($"Revisions in this project: {item.u.RevisionID} with deadline {item.u.deadline}");
                 }
             }
         }

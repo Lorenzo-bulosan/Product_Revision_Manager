@@ -12,19 +12,21 @@ namespace DataAndModels
     {
         public Project()
         {
-
+            Revisions = new HashSet<Revision>();
         }
 
         [Key]
         public int ProjectID { get; set; }
-
-        // need to make revision id col
 
         public string projectName { get; set; }
 
         // associations
         [ForeignKey("User")]
         public int UserID { get; set; }
-        public virtual User User { get; set; } 
+        public virtual User User { get; set; }
+
+        [ForeignKey("Revision")]
+        public int RevisionID { get; set; }
+        public virtual ICollection<Revision> Revisions { get; set; }
     }
 }

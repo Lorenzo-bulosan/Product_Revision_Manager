@@ -1,7 +1,10 @@
 ﻿
+Use Monokayu;
+
 -- see all tables
 SELECT TABLE_NAME FROM INFORMATION_SCHEMA. TABLES;
 
 -- information per table
-sp_help 'Users';
-sp_help 'Projects';
+--sp_help 'Users';
+--sp_help 'Projects';
+--sp_help 'RevisionRounds';

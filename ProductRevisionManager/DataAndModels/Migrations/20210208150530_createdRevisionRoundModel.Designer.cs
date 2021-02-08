@@ -4,14 +4,16 @@ using DataAndModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAndModels.Migrations
 {
     [DbContext(typeof(MonokayuDbContext))]
-    partial class MonokayuDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210208150530_createdRevisionRoundModel")]
+    partial class createdRevisionRoundModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,9 +66,9 @@ namespace DataAndModels.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("DataAndModels.Revision", b =>
+            modelBuilder.Entity("DataAndModels.RevisionRound", b =>
                 {
-                    b.Property<int>("RevisionID")
+                    b.Property<int>("RevisionRoundID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -74,14 +76,17 @@ namespace DataAndModels.Migrations
                     b.Property<int?>("ProjectID")
                         .HasColumnType("int");
 
+                    b.Property<int>("RevisionID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("deadline")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("RevisionID");
+                    b.HasKey("RevisionRoundID");
 
                     b.HasIndex("ProjectID");
 
-                    b.ToTable("Revisions");
+                    b.ToTable("RevisionRounds");
                 });
 
             modelBuilder.Entity("DataAndModels.User", b =>
@@ -119,10 +124,10 @@ namespace DataAndModels.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DataAndModels.Revision", b =>
+            modelBuilder.Entity("DataAndModels.RevisionRound", b =>
                 {
                     b.HasOne("DataAndModels.Project", "Project")
-                        .WithMany("Revisions")
+                        .WithMany("RevisionRounds")
                         .HasForeignKey("ProjectID");
 
                     b.Navigation("Project");
@@ -130,7 +135,7 @@ namespace DataAndModels.Migrations
 
             modelBuilder.Entity("DataAndModels.Project", b =>
                 {
-                    b.Navigation("Revisions");
+                    b.Navigation("RevisionRounds");
                 });
 
             modelBuilder.Entity("DataAndModels.User", b =>
