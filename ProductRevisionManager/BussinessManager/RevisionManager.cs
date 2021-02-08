@@ -73,7 +73,7 @@ namespace BussinessManager
         {
             using (var db = new MonokayuDbContext())
             {
-                Console.WriteLine("\nRetrieving some specific data");
+                Console.WriteLine($"\nRetrieving project info from userid: {id}");
                 var userProjectQuery =
                     db.Users
                     .Join(
@@ -85,7 +85,7 @@ namespace BussinessManager
 
                 foreach (var userProject in userProjectQuery)
                 {
-                    Console.WriteLine($"user {userProject.u.UserID} has these projects {userProject.p.projectName}");
+                    Console.WriteLine($"project name: {userProject.p.projectName}");
                 }
             }
         }
@@ -94,7 +94,7 @@ namespace BussinessManager
         {
             using (var db = new MonokayuDbContext())
             {
-                Console.WriteLine("\nRetrieving all users and their projects");
+                Console.WriteLine("\nRetrieving users with projects that have revisions");
                 var projectRevisionQuery =
                     db.Users
                     .Join(
@@ -112,8 +112,8 @@ namespace BussinessManager
                 foreach (var item in projectRevisionQuery)
                 {
                     Console.WriteLine($"Users {item.rr.u.firstName} of ID: {item.rr.u.UserID}");
-                    Console.WriteLine($"Projects of this user: {item.rr.p.ProjectID}");
-                    Console.WriteLine($"Revisions in this project: {item.u.RevisionID} with deadline {item.u.deadline}");
+                    Console.WriteLine($"ProjectsID: {item.rr.p.ProjectID} with name: {item.rr.p.projectName}");
+                    Console.WriteLine($"Has this RevisionID: {item.u.RevisionID} with deadline {item.u.deadline}");
                 }
             }
         }
@@ -150,16 +150,58 @@ namespace BussinessManager
                         r => r.RevisionID,
                         rt => rt.RevisionID,
                         (r, rt) => new { r, rt }
-                    );
+                    ).Where(z => z.r.RevisionID == revisionId);
 
                 foreach (var task in TaskQuery)
                 {
                     Console.WriteLine($"RevisionID {task.r.RevisionID} has taskID {task.rt.TaskID}");
                     Console.WriteLine($"Details of this task: " +
-                                      $"\n -title{task.rt.title} " +
+                                      $"\n -title: {task.rt.title} " +
                                       $"\n -description: {task.rt.description} " +
                                       $"\n -urgency: {task.rt.urgency}" +
                                       $"\n -progress: {task.rt.progress}");
+                }
+            }
+        }
+
+        public static void AddCommentToTaskID(int taskID)
+        {
+            Console.WriteLine($"\nAdding comments to taskID: {taskID}");
+
+            using (var db = new MonokayuDbContext())
+            {
+                db.Add(new TaskComment
+                {
+                    TaskID = taskID,
+                    comment = "Hi is this done yet?",
+                    time = new DateTime()
+                }); 
+
+                db.SaveChanges();
+            }
+        }
+
+        public static void GetCommentsFromTaskID(int taskID)
+        {
+            Console.WriteLine($"\nQuerying comments from taskID: {taskID}");
+
+            using (var db = new MonokayuDbContext())
+            {
+                var CommentQuery =
+                    db.RevisionTasks
+                    .Join(
+                        db.TaskComments,
+                        rt => rt.TaskID,
+                        tc => tc.TaskID,
+                        (rt, tc) => new { rt, tc }
+                    ).Where(c => c.rt.TaskID == taskID);
+
+                foreach (var comment in CommentQuery)
+                {
+                    Console.WriteLine($"tasksID {comment.rt.TaskID} has commentID {comment.tc.CommentID}");
+                    Console.WriteLine($"Details of this comment: " +
+                                      $"\n -comment: '{comment.tc.comment}' " +
+                                      $"\n -time written: {comment.tc.time}");
                 }
             }
         }

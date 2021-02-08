@@ -12,7 +12,7 @@ namespace DataAndModels
     {
         public RevisionTask()
         {
-
+            TaskComments = new HashSet<TaskComment>();
         }
 
         [Key]
@@ -29,6 +29,6 @@ namespace DataAndModels
 
         // associations
         public virtual Revision Revision { get; set; }
-
+        public virtual ICollection<TaskComment> TaskComments { get; set; }
     }
 }
