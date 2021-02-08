@@ -18,7 +18,7 @@ namespace DataAndModels
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Revision> Revisions { get; set; }
-        //public virtual DbSet<RevisionTask> RevisionTasks { get; set; }
+        public virtual DbSet<RevisionTask> RevisionTasks { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)

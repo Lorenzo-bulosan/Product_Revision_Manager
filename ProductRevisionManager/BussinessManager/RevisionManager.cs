@@ -118,6 +118,52 @@ namespace BussinessManager
             }
         }
 
+        public static void AddTaskToRevisionID(int revisionID)
+        {
+            Console.WriteLine($"\nAdding tasks to RevisionID: {revisionID}");
+
+            using (var db = new MonokayuDbContext())
+            {
+                db.Add(new RevisionTask { 
+                    RevisionID = revisionID,
+                    title="Add modal", 
+                    description="Need to add modal when cliking button add",
+                    urgency=4,
+                    progress=0,
+                    links="https://Monokayu.com"
+                });
+
+                db.SaveChanges();
+            }
+        }
+
+        public static void GetTasksFromRevisionID(int revisionId)
+        {
+            Console.WriteLine($"\nQuerying tasks from RevisionID: {revisionId}");
+
+            using (var db = new MonokayuDbContext())
+            {
+                var TaskQuery =
+                    db.Revisions
+                    .Join(
+                        db.RevisionTasks,
+                        r => r.RevisionID,
+                        rt => rt.RevisionID,
+                        (r, rt) => new { r, rt }
+                    );
+
+                foreach (var task in TaskQuery)
+                {
+                    Console.WriteLine($"RevisionID {task.r.RevisionID} has taskID {task.rt.TaskID}");
+                    Console.WriteLine($"Details of this task: " +
+                                      $"\n -title{task.rt.title} " +
+                                      $"\n -description: {task.rt.description} " +
+                                      $"\n -urgency: {task.rt.urgency}" +
+                                      $"\n -progress: {task.rt.progress}");
+                }
+            }
+        }
+
         public static int Test()
         {
             return 0;

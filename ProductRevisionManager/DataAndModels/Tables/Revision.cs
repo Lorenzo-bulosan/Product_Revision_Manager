@@ -12,7 +12,7 @@ namespace DataAndModels
     {
         public Revision()
         {
-
+            RevisionTasks = new HashSet<RevisionTask>();
         }
 
         [Key]
@@ -24,5 +24,7 @@ namespace DataAndModels
         public int ProjectID { get; set; }
         // associations
         public virtual Project Project { get; set; } 
+
+        public virtual ICollection<RevisionTask> RevisionTasks { get; set; }
     }
 }

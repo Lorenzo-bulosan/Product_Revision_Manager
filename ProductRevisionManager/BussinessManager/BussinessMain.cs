@@ -16,7 +16,10 @@ namespace BussinessManager
             //RevisionManager.GetUsersAndTheirProjects();
             //RevisionManager.GetProjectInfoFromUserID(13);
             //RevisionManager.GenerateRevisionForProjectID(10);
-            RevisionManager.GetProjectsAndTheirRevisionsFromUsers();
+            //RevisionManager.GetProjectsAndTheirRevisionsFromUsers();
+            //RevisionManager.AddTaskToRevisionID(3);
+            RevisionManager.GetTasksFromRevisionID(3);
+
         }
 
     }
