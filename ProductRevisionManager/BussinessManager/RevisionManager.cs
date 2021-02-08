@@ -12,14 +12,16 @@ namespace BussinessManager
         
         public static void GenerateUserTestData()
         {
-            //using (var db = new MonokayuDbContext())
-            //{
-            //    Console.WriteLine("Creating some customers");
-            //    db.Add(new User() { CustomerId = "1", City = "London", ContactName = "Lorenzo", PostalCode = "W3 6hg", Country = "Uk" });
-            //    db.Add(new Project() { CustomerId = "2", City = "London", ContactName = "Lorenzo", PostalCode = "W3 6hg", Country = "Uk" });
-            //    db.Add(new Customer() { CustomerId = "3", City = "London", ContactName = "Lorenzo", PostalCode = "W3 6hg", Country = "Uk" });
-            //    db.SaveChanges();
-            //}
+            using (var db = new MonokayuDbContext())
+            {
+                Console.WriteLine("Creating some Users and projects");
+
+                db.Add(new User() { firstName = "Lorenzo0", lastName = "Bulosan", securityLevel = 0, password = "12345678" });
+                db.Add(new User() { firstName = "Lorenzo1", lastName = "Bulosan", securityLevel = 0, password = "12345678" });
+                db.Add(new User() { firstName = "Lorenzo2", lastName = "Bulosan", securityLevel = 0, password = "12345678" });
+
+                db.SaveChanges();
+            }
         }
 
         public static int Test()

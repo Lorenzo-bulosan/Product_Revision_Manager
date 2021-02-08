@@ -25,8 +25,6 @@ namespace DataAndModels
         public string password { get; set; }
 
         // associations
-        [ForeignKey("Project")]
-        public int ProjectID { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
     }
 }

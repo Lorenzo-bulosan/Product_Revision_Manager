@@ -17,7 +17,8 @@ namespace DataAndModels
         [Key]
         public int ProjectID { get; set; }
 
-        // fields
+        // need to make revision id col
+
         public string projectName { get; set; }
 
         // associations

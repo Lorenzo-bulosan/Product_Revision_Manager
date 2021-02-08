@@ -11,7 +11,7 @@ namespace BussinessManager
         {
             Console.WriteLine("Product Revision Management App");
 
-            RevisionManager.addingTestData();
+            RevisionManager.GenerateUserTestData();
 
         }
 
