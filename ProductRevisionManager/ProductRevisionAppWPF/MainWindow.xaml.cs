@@ -36,6 +36,7 @@ namespace ProductRevisionAppWPF
             // log in here
 
             SetCurrentUserInformation();
+            GetRevisionsFromProject(_project);
             ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
         }
 
@@ -44,6 +45,11 @@ namespace ProductRevisionAppWPF
             LabelUserName.Content = $"{_firstName} {_lastName}";
             LabelProjectSelected.Content = $"Project: {_project}";
             LabelRevisionSelected.Content = $"Revision: {_selectedRevision}";
+        }
+
+        private void GetRevisionsFromProject(string uniqueProjectName)
+        {
+            ComboBoxRevisions.ItemsSource = _instance.GetRevisionsFromProject(uniqueProjectName);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -55,6 +61,15 @@ namespace ProductRevisionAppWPF
         private void ListBox_TaskSelected(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void ComboBoxRevisions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            _selectedRevision = (int)ComboBoxRevisions.SelectedItem;
+            SetCurrentUserInformation();
+            GetRevisionsFromProject(_project);
+            ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
         }
     }
 }

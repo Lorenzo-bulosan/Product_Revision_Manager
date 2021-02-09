@@ -83,6 +83,7 @@
 
             <Label x:Name="LabelTest" Content="Label" HorizontalAlignment="Left" Margin="691,482,0,0" VerticalAlignment="Top" Height="26" Width="210" />
             <Label x:Name="LabelName" Content="Label" HorizontalAlignment="Left" Margin="691,563,0,0" VerticalAlignment="Top" Height="26" Width="210" />
+            <ComboBox x:Name="ComboBoxRevisions" HorizontalAlignment="Left" Margin="-119,-61,0,0" Width="63" Height="53" Foreground="Black" SelectionChanged="ComboBoxRevisions_SelectionChanged" VerticalAlignment="Top"/>
         </Grid>
 
     </Grid>

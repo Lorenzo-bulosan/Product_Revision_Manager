@@ -228,12 +228,24 @@ namespace BussinessManager
             return "From inside main";
         }
 
+        // for wpf
         public List<RevisionTask> GetTasksFromRevisionID(int revisionId)
         {
             using (var db = new MonokayuDbContext())
             {
                 var res = db.RevisionTasks.Where(r => r.RevisionID == revisionId).ToList();
                 return res;
+            }
+        }
+
+        public List<int> GetRevisionsFromProject(string uniqueName)
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                var res = from r in db.Revisions 
+                          where r.Project.projectName == uniqueName
+                          select r.RevisionID;
+                return res.ToList();
             }
         }
     }
