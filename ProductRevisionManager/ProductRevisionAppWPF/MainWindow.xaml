@@ -23,14 +23,13 @@
         <DataTemplate x:Key="listBoxTemplate">
             <Border BorderThickness="2" BorderBrush="#FF673AB7" Background="white" CornerRadius="10,10,10,10">
                 <StackPanel Margin="3">
-                    <DockPanel Margin="4">                    
+                    <DockPanel Margin="4">
                         <TextBlock FontWeight="Bold" Text="Task Title:" DockPanel.Dock="Left" Margin="5,0,10,0" />
-                        <TextBlock Text="Lorem impsum Lorem impsum Lorem impsum" />
-                        <TextBlock Text="{Binding ContactName}" Foreground="#FF673AB7" FontWeight="Bold" />
+                        <TextBlock Text="{Binding title}" Foreground="#FF673AB7" FontWeight="Bold" />
                     </DockPanel>
                     <DockPanel>
-                        <TextBlock FontWeight="Bold" Text="issuer:" DockPanel.Dock="Left" Margin="5,0,10,0" />
-                        <TextBlock Text="{Binding ContactName}" Foreground="#FF673AB7" FontWeight="Bold" />
+                        <TextBlock FontWeight="Bold" Text="Description:" DockPanel.Dock="Left" Margin="5,0,10,0" />
+                        <TextBlock Text="{Binding description}" Foreground="#FF673AB7" FontWeight="Bold" />
                     </DockPanel>
                 </StackPanel>
             </Border>
@@ -66,8 +65,7 @@
 
         <!--Left bar-->
         <Grid Grid.Column="0" Grid.Row="1">
-            <ListBox x:Name="ListBoxTasks" Grid.Column="0" Grid.Row="1" SelectionChanged="ListBox_TaskSelected"
-                     
+            <ListBox x:Name="ListBoxTasks" Grid.Column="0" Grid.Row="1" SelectionChanged="ListBox_TaskSelected" 
                      ItemTemplate="{StaticResource listBoxTemplate}">
             </ListBox>
         </Grid>

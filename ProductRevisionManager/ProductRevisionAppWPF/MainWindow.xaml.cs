@@ -19,6 +19,12 @@ namespace ProductRevisionAppWPF
 
     public partial class MainWindow : Window
     {
+        // testing in development
+        private string _firstName = "Lorenzo";
+        private string _lastName = "Bulosan";
+        private string _project = "project2";
+        private int _selectedRevision = 3;
+        //
 
         private RevisionManager _instance;
 
@@ -26,13 +32,15 @@ namespace ProductRevisionAppWPF
         {
             _instance = new RevisionManager();
             InitializeComponent();
+
+            // log in
+            ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             LabelTest.Content = _instance.TestString();
-            LabelName.Content = _instance.RetrieveAll();
-            ListBoxTasks.ItemsSource = _instance.RetrieveAll();
+
         }
         
         private void ListBox_TaskSelected(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

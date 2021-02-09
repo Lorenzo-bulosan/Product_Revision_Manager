@@ -23,7 +23,7 @@ namespace BussinessManager
 
             /* Generate task for a specific revision and retrieve */
             //RevisionManager.AddTaskToRevisionID(3);
-            RevisionManager.GetTasksFromRevisionID(3);
+            RevisionManager.GetTasksFromRevisionID_Dev(3);
 
             /* Generate comment for a task and retrieve */
             //RevisionManager.AddCommentToTaskID(1);

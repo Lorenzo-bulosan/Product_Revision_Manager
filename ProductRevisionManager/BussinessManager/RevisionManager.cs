@@ -137,7 +137,7 @@ namespace BussinessManager
             }
         }
 
-        public static void GetTasksFromRevisionID(int revisionId)
+        public static void GetTasksFromRevisionID_Dev(int revisionId)
         {
             Console.WriteLine($"\nQuerying tasks from RevisionID: {revisionId}");
 
@@ -228,11 +228,11 @@ namespace BussinessManager
             return "From inside main";
         }
 
-        public List<Customer> RetrieveAll()
+        public List<RevisionTask> GetTasksFromRevisionID(int revisionId)
         {
             using (var db = new MonokayuDbContext())
             {
-                var res = db.Customers.ToList();
+                var res = db.RevisionTasks.Where(r => r.RevisionID == revisionId).ToList();
                 return res;
             }
         }
