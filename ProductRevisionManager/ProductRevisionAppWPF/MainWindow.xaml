@@ -17,7 +17,7 @@
 
     Title="Product Revision Management" Height="1080" Width="1920"
     >
-    
+
     <!--Styles-->
     <Window.Resources>
         <DataTemplate x:Key="listBoxTemplate">
@@ -56,11 +56,13 @@
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Right"          
                         >
-                <Label x:Name="LabelUserName" Content="Lorenzo Bulosan" VerticalAlignment="Center" Foreground="White" Margin="5" FontSize="20"/>
+                <Label x:Name="LabelUserName" Content="Not logged in" VerticalAlignment="Center" Foreground="White" Margin="5" FontSize="15"/>
                 <Button Width="60" Height="60">
                     <materialDesign:PackIcon Kind="Logout" Height="30" Width="30"/>
                 </Button>
             </StackPanel>
+            <Label x:Name="LabelProjectSelected" Content="No project Selected" HorizontalAlignment="Center" VerticalAlignment="Center" Width="auto" Foreground="#DDFFFFFF" FontSize="20"/>
+            <Label x:Name="LabelRevisionSelected" Content="Select Revision" HorizontalAlignment="Left" VerticalAlignment="Center" Width="auto" Foreground="#DDFFFFFF" FontSize="20" Margin="10,0,0,0"/>
         </Grid>
 
         <!--Left bar-->

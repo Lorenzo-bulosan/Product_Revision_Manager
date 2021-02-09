@@ -33,8 +33,17 @@ namespace ProductRevisionAppWPF
             _instance = new RevisionManager();
             InitializeComponent();
 
-            // log in
+            // log in here
+
+            SetCurrentUserInformation();
             ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
+        }
+
+        private void SetCurrentUserInformation()
+        {
+            LabelUserName.Content = $"{_firstName} {_lastName}";
+            LabelProjectSelected.Content = $"Project: {_project}";
+            LabelRevisionSelected.Content = $"Revision: {_selectedRevision}";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

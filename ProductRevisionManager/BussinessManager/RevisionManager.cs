@@ -126,8 +126,8 @@ namespace BussinessManager
             {
                 db.Add(new RevisionTask { 
                     RevisionID = revisionID,
-                    title="Add modal", 
-                    description="Need to add modal when cliking button add",
+                    title="Log in function", 
+                    description="start on different frame and then verify uniqueness",
                     urgency=4,
                     progress=0,
                     links="https://Monokayu.com"
