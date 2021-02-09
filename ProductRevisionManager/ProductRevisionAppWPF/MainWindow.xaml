@@ -29,7 +29,7 @@
                     </DockPanel>
                     <DockPanel>
                         <TextBlock FontWeight="Bold" Text="Description:" DockPanel.Dock="Left" Margin="5,0,10,0" />
-                        <TextBlock Text="{Binding description}" Foreground="#FF673AB7" FontWeight="Bold" />
+                        <TextBlock Text="{Binding description}" Foreground="#FF673AB7" FontWeight="Bold" TextWrapping="Wrap" />
                     </DockPanel>
                 </StackPanel>
             </Border>
@@ -107,19 +107,24 @@
 
                 <!--Invisible modal-->
                 <materialDesign:DialogHost.DialogContent>
-                    <Grid Width="300" Height="150" HorizontalAlignment="Center">
+                    <Grid Width="500" Height="300" HorizontalAlignment="Center">
                         <StackPanel Orientation="Horizontal" Margin="15">
-                            <materialDesign:PackIcon Kind="Folder" Foreground="{StaticResource PrimaryHueMidBrush}" Width="50" Height="50"/>
-                            <TextBlock Foreground="Gray" Width="200" Margin="15 5" TextWrapping="Wrap">
-                            Allow Application to access photos, media and files on your computer?
-                            </TextBlock>
+                            
+                            <materialDesign:PackIcon Kind="Subtasks" Foreground="{StaticResource PrimaryHueMidBrush}" Width="50" Height="50"/>
+
+                            <StackPanel Orientation="Vertical">
+                                <TextBox materialDesign:HintAssist.Hint="Title" TextWrapping="Wrap" Width="400"/>
+                                <TextBox materialDesign:HintAssist.Hint="Description" AcceptsReturn="True" Width="400" Height="170" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-UK" />
+                                <TextBox materialDesign:HintAssist.Hint="Useful link" TextWrapping="Wrap" Width="400"/>
+                            </StackPanel>                                                            
+                      
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15">
                             <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center">
-                                Deny
+                                Close without saving
                             </Button>
                             <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center">
-                                Allow
+                                Save new task
                             </Button>
                         </StackPanel>
                     </Grid>
@@ -154,7 +159,7 @@
                                 </StackPanel>
                             </Button>
                             
-                            <Button Style="{StaticResource MaterialDesignFlatButton}"  HorizontalAlignment="Left" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
+                            <Button Style="{StaticResource MaterialDesignFlatButton}"  HorizontalAlignment="Left">
                                 <StackPanel Orientation="Horizontal" Height="30" >
                                     <materialDesign:PackIcon Kind="Plus" Width="20" Height="20" VerticalAlignment="Center" Foreground="white"/>
                                     <TextBlock Text="Add Revision" Margin="20 0" FontSize="15" VerticalAlignment="Center" Foreground="White"/>
