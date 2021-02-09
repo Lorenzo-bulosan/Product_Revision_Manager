@@ -24,6 +24,7 @@ namespace ProductRevisionAppWPF
         private string _lastName = "Bulosan";
         private string _project = "project2";
         private int _selectedRevision = 3;
+        private int _selectedUrgency = 1;
         //
 
         private RevisionManager _instance;
@@ -37,7 +38,9 @@ namespace ProductRevisionAppWPF
 
             SetCurrentUserInformation();
             GetRevisionsFromProject(_project);
-            ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
+            GetAllTasksFromRevisionAndPopulate();
+
+            PopulateComboboxUrgency();
         }
 
         private void SetCurrentUserInformation()
@@ -47,9 +50,17 @@ namespace ProductRevisionAppWPF
             LabelRevisionSelected.Content = $"Revision: {_selectedRevision}";
         }
 
+        private void GetAllTasksFromRevisionAndPopulate()
+        {
+            ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
+        }
+
         private void GetRevisionsFromProject(string uniqueProjectName)
         {
-            ComboBoxRevisions.ItemsSource = _instance.GetRevisionsFromProject(uniqueProjectName);
+            var revisions = _instance.GetRevisionsFromProject(uniqueProjectName);
+            
+            // populate revision combobox
+            ComboBoxRevisions.ItemsSource = revisions;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -74,10 +85,28 @@ namespace ProductRevisionAppWPF
         private void ButtonAddTask_Click(object sender, RoutedEventArgs e)
         {
             // add 
-            _instance.AddTaskToRevision(_selectedRevision, TextBoxTitle.Text, TextBoxDescription.Text, 3);
+            _instance.AddTaskToRevision(_selectedRevision, TextBoxTitle.Text, TextBoxDescription.Text, _selectedUrgency);
 
             // refresh
             ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
+
+        }
+
+        private void ComboBoxUrgency_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _selectedUrgency = (int)ComboBoxUrgency.SelectedValue;
+        }
+
+        private void PopulateComboboxUrgency()
+        {
+            Dictionary<int, string> urgencyDict = new Dictionary<int, string>();
+            urgencyDict.Add(1,"Low");
+            urgencyDict.Add(2,"Medium");
+            urgencyDict.Add(3,"High");
+            urgencyDict.Add(4,"Urgent");
+
+            // bind to combobox
+            ComboBoxUrgency.ItemsSource = urgencyDict;
 
         }
     }

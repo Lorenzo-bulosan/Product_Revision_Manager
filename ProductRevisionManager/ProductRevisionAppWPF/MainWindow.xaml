@@ -31,6 +31,10 @@
                         <TextBlock FontWeight="Bold" Text="Description:" DockPanel.Dock="Left" Margin="5,0,10,0" />
                         <TextBlock Text="{Binding description}" Foreground="#FF673AB7" FontWeight="Bold" TextWrapping="Wrap" />
                     </DockPanel>
+                    <DockPanel>
+                        <TextBlock FontWeight="Bold" Text="Urgency:" DockPanel.Dock="Left" Margin="5,0,10,0" />
+                        <TextBlock Text="{Binding urgency}" Foreground="#FF673AB7" FontWeight="Bold" TextWrapping="Wrap" />
+                    </DockPanel>
                 </StackPanel>
             </Border>
         </DataTemplate>
@@ -98,15 +102,24 @@
 
                 <!--Invisible modal-->
                 <materialDesign:DialogHost.DialogContent>
-                    <Grid Width="500" Height="300" HorizontalAlignment="Center">
+                    <Grid Width="500" Height="350" HorizontalAlignment="Center">
                         <StackPanel Orientation="Horizontal" Margin="15">
                             
                             <materialDesign:PackIcon Kind="Subtasks" Foreground="{StaticResource PrimaryHueMidBrush}" Width="50" Height="50"/>
 
-                            <StackPanel Orientation="Vertical">
-                                <TextBox x:Name="TextBoxTitle"  materialDesign:HintAssist.Hint="Title" TextWrapping="Wrap" Width="400"/>
-                                <TextBox x:Name="TextBoxDescription"  materialDesign:HintAssist.Hint="Description" AcceptsReturn="True" Width="400" Height="170" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-UK" />
-                                <TextBox x:Name="TextBoxLink"  materialDesign:HintAssist.Hint="Useful link" TextWrapping="Wrap" Width="400"/>
+                            <StackPanel Orientation="Vertical">         
+                                <TextBox x:Name="TextBoxTitle" materialDesign:HintAssist.Hint="Title" TextWrapping="Wrap" Width="400"/>
+                                <TextBox x:Name="TextBoxDescription" materialDesign:HintAssist.Hint="Description" AcceptsReturn="True" Width="400" Height="170" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-UK" />
+                                <TextBox x:Name="TextBoxLink" materialDesign:HintAssist.Hint="Useful link" TextWrapping="Wrap" Width="400"/>
+                                
+                                <ComboBox x:Name="ComboBoxUrgency" Text="Urgency" 
+                                      IsEditable="true" IsReadOnly="True"
+                                      Margin="0,0,0,0" Width="auto" Height="auto" Foreground="Gray"  Background="white"
+                                      SelectionChanged="ComboBoxUrgency_SelectionChanged"
+                                      SelectedValuePath="Key" 
+                                      DisplayMemberPath="Value"    
+                                      />
+                                
                             </StackPanel>                                                            
                       
                         </StackPanel>
