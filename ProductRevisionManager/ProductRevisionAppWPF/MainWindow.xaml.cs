@@ -42,7 +42,6 @@ namespace ProductRevisionAppWPF
 
             PopulateComboboxUrgency();
 
-            PopulateTaskInformationWithCurrentTask();
         }
 
         private void SetCurrentUserInformation()
@@ -67,10 +66,26 @@ namespace ProductRevisionAppWPF
         
         private void ListBox_TaskSelected(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            LabelCurrentTaskTitle.Content = ListBoxTasks.SelectedItem.title;
-            LabelCurrentTaskUrgency.Content = "asdf";
-            LabelCurrentTaskURL.Content = "fa";
-            CardCurrentTaskDescription.Content = "ad";
+            _instance.SetSelectedRevisionTask(ListBoxTasks.SelectedItem); 
+            PopulateMainScreenWithCurrentTaskSelected();
+        }
+
+        private void PopulateMainScreenWithCurrentTaskSelected()
+        {
+            if (_instance.SelectedRevisionTask != null)
+            {
+                LabelCurrentTaskTitle.Content = _instance.SelectedRevisionTask.title;
+                LabelCurrentTaskUrgency.Content = _instance.SelectedRevisionTask.urgency.ToString();
+                LabelCurrentTaskURL.Content = _instance.SelectedRevisionTask.links;
+                CardCurrentTaskDescription.Content = _instance.SelectedRevisionTask.description;
+            }
+            else
+            {
+                LabelCurrentTaskTitle.Content = "No title";
+                LabelCurrentTaskUrgency.Content = "No urgency";
+                LabelCurrentTaskURL.Content = "URL";
+                CardCurrentTaskDescription.Content = "No description";
+            }
         }
 
         private void ComboBoxRevisions_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -108,12 +123,5 @@ namespace ProductRevisionAppWPF
             ComboBoxUrgency.ItemsSource = urgencyDict;
         }
 
-        private void PopulateTaskInformationWithCurrentTask()
-        {
-            LabelCurrentTaskTitle.Content = "asdf";
-            LabelCurrentTaskUrgency.Content = "asdf";
-            LabelCurrentTaskURL.Content = "fa";
-            CardCurrentTaskDescription.Content = "ad";
-        }
     }
 }

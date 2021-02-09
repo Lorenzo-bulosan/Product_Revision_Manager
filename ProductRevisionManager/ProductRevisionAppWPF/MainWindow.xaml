@@ -28,10 +28,10 @@
                         <TextBlock FontWeight="Bold" Text="Task Title:" DockPanel.Dock="Left" Margin="5,0,10,0" Foreground="LightSeaGreen" />
                         <TextBlock Text="{Binding title}" Foreground="white" />
                     </DockPanel>
-                    <DockPanel>
+                    <!--<DockPanel>
                         <TextBlock FontWeight="Bold" Text="Description:" DockPanel.Dock="Left" Margin="5,0,10,0" Foreground="LightSeaGreen"/>
                         <TextBlock Text="{Binding description}" Foreground="white" TextWrapping="Wrap" />
-                    </DockPanel>
+                    </DockPanel>-->
                     <DockPanel>
                         <TextBlock FontWeight="Bold" Text="Urgency:" DockPanel.Dock="Left" Margin="5,0,10,0" Foreground="LightSeaGreen"/>
                         <TextBlock Text="{Binding urgency}" Foreground="white" TextWrapping="Wrap" />
@@ -169,6 +169,10 @@
                             <RowDefinition Height="45*"/>
                         </Grid.RowDefinitions>
 
+                        <Grid Grid.Row="0" Grid.Column="2">
+                            <Label x:Name="LabelCurrentTaskUrgency" Content="Urgency" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" />
+                        </Grid>
+                        
                         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
                             <Label x:Name="LabelCurrentTaskTitle" Content="Title" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Height="26" Width="210" />
                         </Grid>
@@ -181,13 +185,8 @@
                             
                         </Grid>
 
-                        <Grid Grid.Row="0" Grid.Column="2">
-                            <Label x:Name="LabelCurrentTaskUrgency" Content="Urgency" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" />
-                        </Grid>
-
                     </Grid>
-                    <!-- END Structure for task content-->
-                    
+                    <!-- END Structure for task content-->                    
                 </Grid>
                 <!-- END Structure for main content-->
             </materialDesign:DialogHost>

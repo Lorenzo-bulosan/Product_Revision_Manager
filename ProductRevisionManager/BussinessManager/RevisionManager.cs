@@ -229,6 +229,13 @@ namespace BussinessManager
         }
 
         // for wpf
+        public RevisionTask SelectedRevisionTask { get; set; }
+
+        public void SetSelectedRevisionTask(Object ListBoxSelectedItem)
+        {
+            SelectedRevisionTask = (RevisionTask)ListBoxSelectedItem;
+        }
+
         public List<RevisionTask> GetTasksFromRevisionID(int revisionId)
         {
             using (var db = new MonokayuDbContext())
