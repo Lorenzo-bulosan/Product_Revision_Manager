@@ -73,13 +73,13 @@
         </Grid>
 
         <!--Main bar-->
-        <Grid Grid.Column="1" Grid.Row="1">
+        <!--<Grid Grid.Column="1" Grid.Row="1">
             <materialDesign:Card Content="Card" HorizontalAlignment="Left" Margin="54,73,0,0" VerticalAlignment="Top" Height="174" Width="1531"/>
 
             <Label x:Name="LabelTest" Content="Label" HorizontalAlignment="Left" Margin="691,482,0,0" VerticalAlignment="Top" Height="26" Width="210" />
             <Label x:Name="LabelName" Content="Label" HorizontalAlignment="Left" Margin="691,563,0,0" VerticalAlignment="Top" Height="26" Width="210" />
             <ComboBox x:Name="ComboBoxRevisions" HorizontalAlignment="Left" Margin="-119,-61,0,0" Width="63" Height="53" Foreground="Black" SelectionChanged="ComboBoxRevisions_SelectionChanged" VerticalAlignment="Top"/>
-        </Grid>
+        </Grid>-->
 
         <Button Style="{StaticResource MaterialDesignFlatButton}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
             <StackPanel Orientation="Horizontal" Height="30">
@@ -101,9 +101,10 @@
             <Button Content="Add new" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click" Height="60" Width="200" Grid.Row="2"/>
         </Grid>-->
 
+        <!--Main bar-->
         <Grid Grid.Column="1" Grid.Row="1">
-            <materialDesign:DialogHost BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="0,0,10,749">
-                
+            <materialDesign:DialogHost BorderBrush="{DynamicResource MaterialDesignDivider}">
+
                 <!--Invisible modal-->
                 <materialDesign:DialogHost.DialogContent>
                     <Grid Width="300" Height="150" HorizontalAlignment="Center">
@@ -123,23 +124,53 @@
                         </StackPanel>
                     </Grid>
                 </materialDesign:DialogHost.DialogContent>
-                
-                <!--button for modal-->
-                <Grid Margin="0,0,1320,35">
-                    <StackPanel Width="200" HorizontalAlignment="Left" Background="#FF472076">
-                        <Button Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
-                            <StackPanel Orientation="Horizontal" Height="30">
-                                <materialDesign:PackIcon Kind="Plus" Width="20" Height="20" VerticalAlignment="Center" Foreground="white"/>
-                                <TextBlock Text="Add Task" Margin="20 0" FontSize="15" VerticalAlignment="Center" Foreground="White"/>
-                            </StackPanel>
-                        </Button>
-                        <Button Style="{StaticResource MaterialDesignFlatButton}"  HorizontalAlignment="Left" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
-                            <StackPanel Orientation="Horizontal" Height="30" >
-                                <materialDesign:PackIcon Kind="Plus" Width="20" Height="20" VerticalAlignment="Center" Foreground="white"/>
-                                <TextBlock Text="Add Revision" Margin="20 0" FontSize="15" VerticalAlignment="Center" Foreground="White"/>
-                            </StackPanel>
-                        </Button>
-                    </StackPanel>
+
+                <!--Structure for main content-->
+                <Grid>
+                    <!--Grid definition on main bar-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="201*"/>
+                        <ColumnDefinition Width="1445*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="451*"/>
+                    </Grid.RowDefinitions>
+
+
+                    <!--sidebar on main bar-->
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <StackPanel Width="200" HorizontalAlignment="Left" Background="#FF472076">
+
+                            <ComboBox x:Name="ComboBoxRevisions" Text="Select Revision" 
+                                      IsEditable="true"  IsReadOnly="true" HorizontalAlignment="Center" 
+                                      Margin="0,0,0,0" Width="196"  Foreground="black"  Background="white"
+                                      SelectionChanged="ComboBoxRevisions_SelectionChanged" FontSize="15"/>
+                            
+                            <Button Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
+                                <StackPanel Orientation="Horizontal" Height="30">
+                                    <materialDesign:PackIcon Kind="Plus" Width="20" Height="20" VerticalAlignment="Center" Foreground="white"/>
+                                    <TextBlock Text="Add Task" Margin="20 0" FontSize="15" VerticalAlignment="Center" Foreground="White"/>
+                                </StackPanel>
+                            </Button>
+                            
+                            <Button Style="{StaticResource MaterialDesignFlatButton}"  HorizontalAlignment="Left" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
+                                <StackPanel Orientation="Horizontal" Height="30" >
+                                    <materialDesign:PackIcon Kind="Plus" Width="20" Height="20" VerticalAlignment="Center" Foreground="white"/>
+                                    <TextBlock Text="Add Revision" Margin="20 0" FontSize="15" VerticalAlignment="Center" Foreground="White"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- task information on main bar -->
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <materialDesign:Card Content="Card" HorizontalAlignment="Left" Margin="54,73,0,0" VerticalAlignment="Top" Height="174" Width="1531"/>
+                        <Label x:Name="LabelTest" Content="Label" HorizontalAlignment="Left" Margin="691,482,0,0" VerticalAlignment="Top" Height="26" Width="210" />
+                        <Label x:Name="LabelName" Content="Label" HorizontalAlignment="Left" Margin="691,563,0,0" VerticalAlignment="Top" Height="26" Width="210" />
+                    </Grid>
+
+
                 </Grid>
             </materialDesign:DialogHost>
         </Grid>
