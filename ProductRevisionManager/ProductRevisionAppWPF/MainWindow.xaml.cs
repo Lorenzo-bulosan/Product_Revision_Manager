@@ -41,6 +41,8 @@ namespace ProductRevisionAppWPF
             GetAllTasksFromRevisionAndPopulate();
 
             PopulateComboboxUrgency();
+
+            PopulateTaskInformationWithCurrentTask();
         }
 
         private void SetCurrentUserInformation()
@@ -62,16 +64,13 @@ namespace ProductRevisionAppWPF
             // populate revision combobox
             ComboBoxRevisions.ItemsSource = revisions;
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            LabelTest.Content = _instance.TestString();
-
-        }
         
         private void ListBox_TaskSelected(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-
+            LabelCurrentTaskTitle.Content = ListBoxTasks.SelectedItem.title;
+            LabelCurrentTaskUrgency.Content = "asdf";
+            LabelCurrentTaskURL.Content = "fa";
+            CardCurrentTaskDescription.Content = "ad";
         }
 
         private void ComboBoxRevisions_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -107,7 +106,14 @@ namespace ProductRevisionAppWPF
 
             // bind to combobox
             ComboBoxUrgency.ItemsSource = urgencyDict;
+        }
 
+        private void PopulateTaskInformationWithCurrentTask()
+        {
+            LabelCurrentTaskTitle.Content = "asdf";
+            LabelCurrentTaskUrgency.Content = "asdf";
+            LabelCurrentTaskURL.Content = "fa";
+            CardCurrentTaskDescription.Content = "ad";
         }
     }
 }

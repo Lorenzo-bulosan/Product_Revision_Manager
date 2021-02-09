@@ -21,22 +21,24 @@
     <!--Styles-->
     <Window.Resources>
         <DataTemplate x:Key="listBoxTemplate">
-            <Border BorderThickness="2" BorderBrush="#FF673AB7" Background="white" CornerRadius="10,10,10,10">
-                <StackPanel Margin="3">
-                    <DockPanel Margin="4">
-                        <TextBlock FontWeight="Bold" Text="Task Title:" DockPanel.Dock="Left" Margin="5,0,10,0" />
-                        <TextBlock Text="{Binding title}" Foreground="#FF673AB7" FontWeight="Bold" />
+
+            <Border BorderThickness="2" Background="#FF673AB7" CornerRadius="10,10,10,10">
+                <StackPanel Margin="3" Width="250">
+                    <DockPanel>
+                        <TextBlock FontWeight="Bold" Text="Task Title:" DockPanel.Dock="Left" Margin="5,0,10,0" Foreground="LightSeaGreen" />
+                        <TextBlock Text="{Binding title}" Foreground="white" />
                     </DockPanel>
                     <DockPanel>
-                        <TextBlock FontWeight="Bold" Text="Description:" DockPanel.Dock="Left" Margin="5,0,10,0" />
-                        <TextBlock Text="{Binding description}" Foreground="#FF673AB7" FontWeight="Bold" TextWrapping="Wrap" />
+                        <TextBlock FontWeight="Bold" Text="Description:" DockPanel.Dock="Left" Margin="5,0,10,0" Foreground="LightSeaGreen"/>
+                        <TextBlock Text="{Binding description}" Foreground="white" TextWrapping="Wrap" />
                     </DockPanel>
                     <DockPanel>
-                        <TextBlock FontWeight="Bold" Text="Urgency:" DockPanel.Dock="Left" Margin="5,0,10,0" />
-                        <TextBlock Text="{Binding urgency}" Foreground="#FF673AB7" FontWeight="Bold" TextWrapping="Wrap" />
+                        <TextBlock FontWeight="Bold" Text="Urgency:" DockPanel.Dock="Left" Margin="5,0,10,0" Foreground="LightSeaGreen"/>
+                        <TextBlock Text="{Binding urgency}" Foreground="white" TextWrapping="Wrap" />
                     </DockPanel>
                 </StackPanel>
             </Border>
+
         </DataTemplate>
     </Window.Resources>
 
@@ -45,14 +47,13 @@
 
         <!--Grid definition-->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="137*"/>
-            <ColumnDefinition Width="823*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="17*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="34*"/>
             <RowDefinition Height="451*"/>
-            <RowDefinition Height="47*"/>
         </Grid.RowDefinitions>
 
         <!--Top bar-->
@@ -70,48 +71,28 @@
         </Grid>
 
         <!--Left bar-->
-        <Grid Grid.Column="0" Grid.Row="1">
+        <Grid Grid.Column="0" Grid.RowSpan="3" Margin="0,68,0,0">
             <ListBox x:Name="ListBoxTasks" Grid.Column="0" Grid.Row="1" SelectionChanged="ListBox_TaskSelected" 
                      ItemTemplate="{StaticResource listBoxTemplate}">
             </ListBox>
         </Grid>
 
-        <Button Style="{StaticResource MaterialDesignFlatButton}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
-            <StackPanel Orientation="Horizontal" Height="30">
-                <materialDesign:PackIcon Kind="PhotoAlbum" Width="20" Height="20" VerticalAlignment="Center"/>
-                <TextBlock Text="Photos" Margin="20 0" FontSize="15" VerticalAlignment="Center"/>
-            </StackPanel>
-        </Button>
-        <Button Style="{StaticResource MaterialDesignFlatButton}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
-            <StackPanel Orientation="Horizontal" Height="30">
-                <materialDesign:PackIcon Kind="Music" Width="20" Height="20" VerticalAlignment="Center"/>
-                <TextBlock Text="Music" Margin="20 0" FontSize="15" VerticalAlignment="Center"/>
-            </StackPanel>
-        </Button>
-
-        <!--Adding new task using modal-->
-
-        <!--Bottom left bar-->
-        <!--<Grid Grid.Column="0" Grid.Row="2">
-            <Button Content="Add new" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click" Height="60" Width="200" Grid.Row="2"/>
-        </Grid>-->
-
         <!--Main bar-->
-        <Grid Grid.Column="1" Grid.Row="1">
+        <Grid Grid.Column="1" Margin="0,68,0,0" Grid.RowSpan="2">
             <materialDesign:DialogHost BorderBrush="{DynamicResource MaterialDesignDivider}">
 
                 <!--Invisible modal-->
                 <materialDesign:DialogHost.DialogContent>
                     <Grid Width="500" Height="350" HorizontalAlignment="Center">
                         <StackPanel Orientation="Horizontal" Margin="15">
-                            
+
                             <materialDesign:PackIcon Kind="Subtasks" Foreground="{StaticResource PrimaryHueMidBrush}" Width="50" Height="50"/>
 
-                            <StackPanel Orientation="Vertical">         
+                            <StackPanel Orientation="Vertical">
                                 <TextBox x:Name="TextBoxTitle" materialDesign:HintAssist.Hint="Title" TextWrapping="Wrap" Width="400"/>
                                 <TextBox x:Name="TextBoxDescription" materialDesign:HintAssist.Hint="Description" AcceptsReturn="True" Width="400" Height="170" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-UK" />
                                 <TextBox x:Name="TextBoxLink" materialDesign:HintAssist.Hint="Useful link" TextWrapping="Wrap" Width="400"/>
-                                
+
                                 <ComboBox x:Name="ComboBoxUrgency" Text="Urgency" 
                                       IsEditable="true" IsReadOnly="True"
                                       Margin="0,0,0,0" Width="auto" Height="auto" Foreground="Gray"  Background="white"
@@ -119,9 +100,9 @@
                                       SelectedValuePath="Key" 
                                       DisplayMemberPath="Value"    
                                       />
-                                
-                            </StackPanel>                                                            
-                      
+
+                            </StackPanel>
+
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15">
                             <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center">
@@ -146,23 +127,22 @@
                         <RowDefinition Height="451*"/>
                     </Grid.RowDefinitions>
 
-
                     <!--sidebar on main bar-->
                     <Grid Grid.Row="0" Grid.Column="0">
                         <StackPanel Width="200" HorizontalAlignment="Left" Background="#FF472076">
 
                             <ComboBox x:Name="ComboBoxRevisions" Text="Select Revision" 
                                       IsEditable="true"  IsReadOnly="true" HorizontalAlignment="Center" 
-                                      Margin="0,0,0,0" Width="auto"  Foreground="black"  Background="white"
-                                      SelectionChanged="ComboBoxRevisions_SelectionChanged" FontSize="15"/>
-                            
+                                      Margin="0,5,0,0" Foreground="black"  Background="white"
+                                      SelectionChanged="ComboBoxRevisions_SelectionChanged" FontSize="15" Width="150"/>
+
                             <Button Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
                                 <StackPanel Orientation="Horizontal" Height="30">
                                     <materialDesign:PackIcon Kind="Plus" Width="20" Height="20" VerticalAlignment="Center" Foreground="white"/>
                                     <TextBlock Text="Add Task" Margin="20 0" FontSize="15" VerticalAlignment="Center" Foreground="White"/>
                                 </StackPanel>
                             </Button>
-                            
+
                             <Button Style="{StaticResource MaterialDesignFlatButton}"  HorizontalAlignment="Left">
                                 <StackPanel Orientation="Horizontal" Height="30" >
                                     <materialDesign:PackIcon Kind="Plus" Width="20" Height="20" VerticalAlignment="Center" Foreground="white"/>
@@ -174,17 +154,47 @@
 
                     <!-- task information on main bar -->
                     <Grid Grid.Row="0" Grid.Column="1">
-                        <materialDesign:Card Content="Card" HorizontalAlignment="Left" Margin="54,73,0,0" VerticalAlignment="Top" Height="174" Width="1531"/>
-                        <Label x:Name="LabelTest" Content="Label" HorizontalAlignment="Left" Margin="691,482,0,0" VerticalAlignment="Top" Height="26" Width="210" />
-                        <Label x:Name="LabelName" Content="Label" HorizontalAlignment="Left" Margin="691,563,0,0" VerticalAlignment="Top" Height="26" Width="210" />
+
+                        <!--Grid definition of task content-->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="370*"/>
+                            <ColumnDefinition Width="915*"/>
+                            <ColumnDefinition Width="148*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40*"/>
+                            <RowDefinition Height="146*"/>
+                            <RowDefinition Height="267*"/>
+                            <RowDefinition Height="45*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                            <Label x:Name="LabelCurrentTaskTitle" Content="Title" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Height="26" Width="210" />
+                        </Grid>
+
+                        <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="1">
+                            <StackPanel Orientation="Vertical">
+                                <materialDesign:Card Content="Card" x:Name="CardCurrentTaskDescription" VerticalAlignment="Top" Height="174" Width="auto" MinWidth="200" MaxWidth="1400"/>
+                                <Label x:Name="LabelCurrentTaskURL"  Content="Useful URL" HorizontalAlignment="Left" Margin="0,25,0,0" />
+                            </StackPanel>
+                            
+                        </Grid>
+
+                        <Grid Grid.Row="0" Grid.Column="2">
+                            <Label x:Name="LabelCurrentTaskUrgency" Content="Urgency" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" />
+                        </Grid>
+
                     </Grid>
-
-
+                    <!-- END Structure for task content-->
+                    
                 </Grid>
+                <!-- END Structure for main content-->
             </materialDesign:DialogHost>
         </Grid>
-
+        <!-- END Main bar -->
     </Grid>
+    <!-- END -->
 </Window>
 
 
