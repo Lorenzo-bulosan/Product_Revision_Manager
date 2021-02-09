@@ -4,17 +4,24 @@ Tier 3 app in WPF with internal SQL server that aims to solve the communication 
 
 ### Table of contents
 
-1. 
-2. 
+2. Project Goal
+2. Installation Manual
+3. Features examples
 
 ### Project Goal
 
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+The goal is the project is to create an App in WPF to manage the communication of product revisions between clients and suppliers
 
 #### Installation manual
 
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+Download the solution "[ProductRevisionManager.sln](https://github.com/Lorenzo-bulosan/Product_Revision_Manager/blob/master/ProductRevisionManager/ProductRevisionManager.sln)" 
+
+You can open the solution with Visual Studio and make sure you have the following downloaded using Nugget package manager:
+
+- Nunit
+- Entity Framework Core
+- Entity Framework Tools
+- Entity Framework SQL Server
 
 #### Demo of features
 
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
