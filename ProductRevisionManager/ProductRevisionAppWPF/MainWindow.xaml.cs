@@ -65,11 +65,20 @@ namespace ProductRevisionAppWPF
 
         private void ComboBoxRevisions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
             _selectedRevision = (int)ComboBoxRevisions.SelectedItem;
             SetCurrentUserInformation();
             GetRevisionsFromProject(_project);
             ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
+        }
+
+        private void ButtonAddTask_Click(object sender, RoutedEventArgs e)
+        {
+            // add 
+            _instance.AddTaskToRevision(_selectedRevision, TextBoxTitle.Text, TextBoxDescription.Text, 3);
+
+            // refresh
+            ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
+
         }
     }
 }

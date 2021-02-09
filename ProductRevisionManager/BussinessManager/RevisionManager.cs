@@ -248,5 +248,23 @@ namespace BussinessManager
                 return res.ToList();
             }
         }
+
+        public void AddTaskToRevision( int revisionID, string title, string description, int urgency, int progress=0 ,string url="")
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                db.Add(new RevisionTask
+                {
+                    RevisionID = revisionID,
+                    title = title,
+                    description = description,
+                    urgency = urgency,
+                    progress = progress,
+                    links = url
+                });
+
+                db.SaveChanges();
+            }
+        }
     }
 }
