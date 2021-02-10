@@ -78,7 +78,7 @@
         </Grid>
 
         <!--Main bar-->
-        <Grid Grid.Column="1" Margin="0,68,0,0" Grid.RowSpan="2">
+        <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
             <materialDesign:DialogHost BorderBrush="{DynamicResource MaterialDesignDivider}">
 
                 <!--Invisible modal-->
@@ -163,30 +163,30 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="40*"/>
-                            <RowDefinition Height="146*"/>
-                            <RowDefinition Height="267*"/>
-                            <RowDefinition Height="45*"/>
+                            <RowDefinition Height="79*"/>
+                            <RowDefinition Height="184*"/>
+                            <RowDefinition Height="637*"/>
+                            <RowDefinition Height="89*"/>
                         </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,148,0">
+                            <Label x:Name="LabelCurrentTaskTitle" Content="Title" Foreground="LightSeaGreen" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Height="26" Width="210" />
+                        </Grid>
+
+                        <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="0,79,0,0">
+                            <StackPanel Orientation="Vertical">
+                                <materialDesign:Card Content="Card" Foreground="LightSeaGreen" x:Name="CardCurrentTaskDescription" VerticalAlignment="Top" Height="auto" Width="auto" MinWidth="200" MaxWidth="1400"/>
+                                <Label x:Name="LabelCurrentTaskURL" Foreground="LightSeaGreen" Content="Useful URL" HorizontalAlignment="Left" Margin="0,25,0,0" />
+                                <Button Height="40">Save</Button>
+                            </StackPanel>
+                        </Grid>
 
                         <Grid Grid.Row="0" Grid.Column="2">
                             <Label x:Name="LabelCurrentTaskUrgency" Content="Urgency" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" />
                         </Grid>
-                        
-                        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-                            <Label x:Name="LabelCurrentTaskTitle" Content="Title" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Height="26" Width="210" />
-                        </Grid>
-
-                        <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="1">
-                            <StackPanel Orientation="Vertical">
-                                <materialDesign:Card Content="Card" x:Name="CardCurrentTaskDescription" VerticalAlignment="Top" Height="174" Width="auto" MinWidth="200" MaxWidth="1400"/>
-                                <Label x:Name="LabelCurrentTaskURL"  Content="Useful URL" HorizontalAlignment="Left" Margin="0,25,0,0" />
-                            </StackPanel>
-                            
-                        </Grid>
 
                     </Grid>
-                    <!-- END Structure for task content-->                    
+                    <!-- END Structure for task content-->
                 </Grid>
                 <!-- END Structure for main content-->
             </materialDesign:DialogHost>
