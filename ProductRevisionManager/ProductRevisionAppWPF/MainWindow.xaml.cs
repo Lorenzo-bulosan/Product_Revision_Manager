@@ -74,17 +74,17 @@ namespace ProductRevisionAppWPF
         {
             if (_instance.SelectedRevisionTask != null)
             {
-                LabelCurrentTaskTitle.Content = _instance.SelectedRevisionTask.title;
+                TextCurrentTaskTitle.Text = _instance.SelectedRevisionTask.title;
                 LabelCurrentTaskUrgency.Content = _instance.SelectedRevisionTask.urgency.ToString();
-                LabelCurrentTaskURL.Content = _instance.SelectedRevisionTask.links;
-                CardCurrentTaskDescription.Content = _instance.SelectedRevisionTask.description;
+                TextCurrentTaskURL.Text = _instance.SelectedRevisionTask.links;
+                TextCurrentTaskDescription.Text = _instance.SelectedRevisionTask.description;
             }
             else
             {
-                LabelCurrentTaskTitle.Content = "No title";
+                TextCurrentTaskTitle.Text = "No title";
                 LabelCurrentTaskUrgency.Content = "No urgency";
-                LabelCurrentTaskURL.Content = "URL";
-                CardCurrentTaskDescription.Content = "No description";
+                TextCurrentTaskURL.Text = "URL";
+                TextCurrentTaskDescription.Text = "No description";
             }
         }
 

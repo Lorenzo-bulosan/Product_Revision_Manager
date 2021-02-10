@@ -153,36 +153,68 @@
                     </Grid>
 
                     <!-- task information on main bar -->
-                    <Grid Grid.Row="0" Grid.Column="1">
+                    <Grid Grid.Row="0" Grid.Column="1" Background="GhostWhite">
 
                         <!--Grid definition of task content-->
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="370*"/>
-                            <ColumnDefinition Width="915*"/>
-                            <ColumnDefinition Width="148*"/>
+                            <ColumnDefinition Width="878*"/>
+                            <ColumnDefinition Width="185*"/>
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="79*"/>
-                            <RowDefinition Height="184*"/>
-                            <RowDefinition Height="637*"/>
+                            <RowDefinition Height="203*"/>
+                            <RowDefinition Height="618*"/>
                             <RowDefinition Height="89*"/>
                         </Grid.RowDefinitions>
 
-                        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,148,0">
-                            <Label x:Name="LabelCurrentTaskTitle" Content="Title" Foreground="LightSeaGreen" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Height="26" Width="210" />
+                        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,148,0" >
+                            <!--<Border BorderThickness="2" Background="DarkBlue" CornerRadius="10,10,10,10">-->
+                            <!--<Label x:Name="LabelCurrentTaskTitle" Content="Title" FontSize="40" 
+                                       VerticalAlignment="Center" Foreground="{StaticResource PrimaryHueMidBrush}" 
+                                       HorizontalAlignment="Left" Margin="10,0,0,0" />-->
+                            <TextBox x:Name="TextCurrentTaskTitle" FontSize="40" MinWidth="1000"
+                                       VerticalAlignment="Center" Foreground="{StaticResource PrimaryHueMidBrush}" 
+                                       HorizontalAlignment="Left" Margin="10,0,0,0" 
+                                     
+                                       >
+                                Title
+                            </TextBox>
+                            <!--</Border>-->
+
                         </Grid>
 
                         <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="0,79,0,0">
                             <StackPanel Orientation="Vertical">
-                                <materialDesign:Card Content="Card" Foreground="LightSeaGreen" x:Name="CardCurrentTaskDescription" VerticalAlignment="Top" Height="auto" Width="auto" MinWidth="200" MaxWidth="1400"/>
-                                <Label x:Name="LabelCurrentTaskURL" Foreground="LightSeaGreen" Content="Useful URL" HorizontalAlignment="Left" Margin="0,25,0,0" />
+                                <TextBox Foreground="{StaticResource PrimaryHueMidBrush}" x:Name="TextCurrentTaskDescription" VerticalAlignment="Top" 
+                                           Height="auto" Width="auto" MinWidth="200" MaxWidth="1400"
+                                           MinHeight="80" FontSize="30"   
+                                           TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-UK"
+                                           AcceptsReturn="True"
+                                           >
+                                    Description
+                                </TextBox>
+                                <TextBox x:Name="TextCurrentTaskURL" Foreground="{StaticResource PrimaryHueMidBrush}" 
+                                           HorizontalAlignment="Left" Margin="0,25,0,10"  FontSize="20"
+                                           MinWidth="1000"
+                                           >
+                                    https://Monokayu.com
+                                </TextBox>
                                 <Button Height="40">Save</Button>
                             </StackPanel>
                         </Grid>
 
                         <Grid Grid.Row="0" Grid.Column="2">
-                            <Label x:Name="LabelCurrentTaskUrgency" Content="Urgency" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" />
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" MinWidth="150">
+                                <Border Background="#FF673AB7" CornerRadius="10,10,10,10" MinWidth="90">
+                                    <Label x:Name="LabelCurrentTaskUrgency" Content="Urgency" Foreground="white"  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" />
+                                </Border>
+                                <Border Background="#FF673AB7" CornerRadius="10,10,10,10" MinWidth="90" HorizontalAlignment="Center">
+                                    <Label x:Name="LabelCurrentTaskProgress" Content="Progress" Foreground="white"  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" />
+                                </Border>
+
+                            </StackPanel>
                         </Grid>
 
                     </Grid>
