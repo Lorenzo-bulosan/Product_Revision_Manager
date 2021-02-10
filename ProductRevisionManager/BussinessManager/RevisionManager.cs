@@ -273,5 +273,21 @@ namespace BussinessManager
                 db.SaveChanges();
             }
         }
+
+        public void UpdateRevisionTask(int taskID, string title, string description, int urgency, int progress, string url)
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                var specificTask = db.RevisionTasks.Where(r => r.TaskID == taskID).FirstOrDefault();
+
+                specificTask.title = title;
+                specificTask.description = description;
+                specificTask.urgency = urgency;
+                specificTask.progress = progress;
+                specificTask.links = url;
+
+                db.SaveChanges();
+            }
+        }
     }
 }

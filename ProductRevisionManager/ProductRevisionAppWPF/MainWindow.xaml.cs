@@ -19,13 +19,29 @@ namespace ProductRevisionAppWPF
 
     public partial class MainWindow : Window
     {
-        // testing in development
+        // testing in development: "logged in user"
         private string _firstName = "Lorenzo";
         private string _lastName = "Bulosan";
         private string _project = "project2";
         private int _selectedRevision = 3;
-        private int _selectedUrgency = 1;
+        private int _urgencyForNewTask = 1;
         //
+
+        private Dictionary<int, string> _urgencyDict = new Dictionary<int, string>()
+        {
+            [1] = "Low",
+            [2] = "Medium",
+            [3] = "High",
+            [4] = "Urgent"
+        };
+
+        private Dictionary<int, string> _progressDict = new Dictionary<int, string>()
+        {
+            [0] = "No Progress",
+            [1] = "In Progress ",
+            [2] = "In Testing ",
+            [3] = "Completed"
+        };
 
         private RevisionManager _instance;
 
@@ -40,7 +56,8 @@ namespace ProductRevisionAppWPF
             GetRevisionsFromProject(_project);
             GetAllTasksFromRevisionAndPopulate();
 
-            PopulateComboboxUrgency();
+            PopulateComboBoxUrgency();
+            PopulateComboBoxProgress();
 
         }
 
@@ -68,21 +85,28 @@ namespace ProductRevisionAppWPF
         {
             _instance.SetSelectedRevisionTask(ListBoxTasks.SelectedItem); 
             PopulateMainScreenWithCurrentTaskSelected();
+            
         }
 
         private void PopulateMainScreenWithCurrentTaskSelected()
         {
-            if (_instance.SelectedRevisionTask != null)
+            var selectectTask = _instance.SelectedRevisionTask;
+
+            if (selectectTask != null)
             {
-                TextCurrentTaskTitle.Text = _instance.SelectedRevisionTask.title;
-                LabelCurrentTaskUrgency.Content = _instance.SelectedRevisionTask.urgency.ToString();
-                TextCurrentTaskURL.Text = _instance.SelectedRevisionTask.links;
-                TextCurrentTaskDescription.Text = _instance.SelectedRevisionTask.description;
+                TextCurrentTaskTitle.Text = selectectTask.title;
+                TextCurrentTaskURL.Text = selectectTask.links;
+                TextCurrentTaskDescription.Text = selectectTask.description;
+                int urgency = _instance.SelectedRevisionTask.urgency;
+                int progress = _instance.SelectedRevisionTask.progress;                
+                ComboBoxCurrentTaskUrgency.SelectedIndex = urgency;
+                ComboBoxCurrentTaskProgress.SelectedIndex = progress;
+                
             }
             else
             {
                 TextCurrentTaskTitle.Text = "No title";
-                LabelCurrentTaskUrgency.Content = "No urgency";
+                ComboBoxCurrentTaskUrgency.SelectedValue = 1;
                 TextCurrentTaskURL.Text = "URL";
                 TextCurrentTaskDescription.Text = "No description";
             }
@@ -99,7 +123,7 @@ namespace ProductRevisionAppWPF
         private void ButtonAddTask_Click(object sender, RoutedEventArgs e)
         {
             // add 
-            _instance.AddTaskToRevision(_selectedRevision, TextBoxTitle.Text, TextBoxDescription.Text, _selectedUrgency);
+            _instance.AddTaskToRevision(_selectedRevision, TextBoxTitle.Text, TextBoxDescription.Text, _urgencyForNewTask);
 
             // refresh
             ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
@@ -108,20 +132,29 @@ namespace ProductRevisionAppWPF
 
         private void ComboBoxUrgency_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedUrgency = (int)ComboBoxUrgency.SelectedValue;
+            _urgencyForNewTask = (int)ComboBoxUrgency.SelectedValue;
         }
 
-        private void PopulateComboboxUrgency()
+        private void PopulateComboBoxUrgency()
         {
-            Dictionary<int, string> urgencyDict = new Dictionary<int, string>();
-            urgencyDict.Add(1,"Low");
-            urgencyDict.Add(2,"Medium");
-            urgencyDict.Add(3,"High");
-            urgencyDict.Add(4,"Urgent");
-
             // bind to combobox
-            ComboBoxUrgency.ItemsSource = urgencyDict;
+            ComboBoxUrgency.ItemsSource = _urgencyDict;
+            ComboBoxCurrentTaskUrgency.ItemsSource = _urgencyDict;
         }
 
+        private void PopulateComboBoxProgress()
+        {
+            ComboBoxCurrentTaskProgress.ItemsSource = _progressDict;
+        }
+
+        private void UpdateRevisionTask(object sender, RoutedEventArgs e)
+        {
+            // update
+            _instance.UpdateRevisionTask(_instance.SelectedRevisionTask.TaskID, TextCurrentTaskTitle.Text, TextCurrentTaskDescription.Text, ComboBoxCurrentTaskUrgency.SelectedIndex, ComboBoxCurrentTaskProgress.SelectedIndex, TextCurrentTaskURL.Text);
+
+            // refresh
+            //PopulateMainScreenWithCurrentTaskSelected();
+            ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
+        }
     }
 }

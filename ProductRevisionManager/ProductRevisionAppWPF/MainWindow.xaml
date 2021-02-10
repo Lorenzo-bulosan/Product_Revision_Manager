@@ -158,8 +158,8 @@
                         <!--Grid definition of task content-->
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="370*"/>
-                            <ColumnDefinition Width="878*"/>
-                            <ColumnDefinition Width="185*"/>
+                            <ColumnDefinition Width="842*"/>
+                            <ColumnDefinition Width="221*"/>
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
@@ -201,17 +201,29 @@
                                            >
                                     https://Monokayu.com
                                 </TextBox>
-                                <Button Height="40">Save</Button>
+                                <Button Height="40" Click="UpdateRevisionTask">Save</Button>
                             </StackPanel>
                         </Grid>
 
                         <Grid Grid.Row="0" Grid.Column="2">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" MinWidth="150">
-                                <Border Background="#FF673AB7" CornerRadius="10,10,10,10" MinWidth="90">
-                                    <Label x:Name="LabelCurrentTaskUrgency" Content="Urgency" Foreground="white"  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" />
+                                <Border  CornerRadius="10,10,10,10" MinWidth="90">
+                                    <!--<Label x:Name="LabelCurrentTaskUrgency" Content="Urgency" Foreground="white"  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" />-->
+                                    <ComboBox x:Name="ComboBoxCurrentTaskUrgency" Text="Urgency" 
+                                      IsEditable="true" IsReadOnly="True"
+                                      Margin="0,0,0,0" Width="auto" Height="auto" Foreground="LightSeaGreen" Background="#FF673AB7"
+                                      SelectedValuePath="Key" 
+                                      DisplayMemberPath="Value"  
+                                      />
                                 </Border>
-                                <Border Background="#FF673AB7" CornerRadius="10,10,10,10" MinWidth="90" HorizontalAlignment="Center">
-                                    <Label x:Name="LabelCurrentTaskProgress" Content="Progress" Foreground="white"  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" />
+                                <Border  CornerRadius="10,10,10,10" MinWidth="90" HorizontalAlignment="Center">
+                                    <!--<Label x:Name="LabelCurrentTaskProgress" Content="Progress" Foreground="white"  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" />-->
+                                    <ComboBox x:Name="ComboBoxCurrentTaskProgress" Text="Progress" 
+                                      IsEditable="true" IsReadOnly="True"
+                                      Margin="0,0,0,0" Width="auto" Height="auto" Foreground="LightSeaGreen" Background="#FF673AB7"
+                                      SelectedValuePath="Key" 
+                                      DisplayMemberPath="Value"    
+                                      />
                                 </Border>
 
                             </StackPanel>
