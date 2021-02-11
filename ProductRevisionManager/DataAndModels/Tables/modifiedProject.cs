@@ -21,7 +21,9 @@ namespace DataAndModels
         public string projectName { get; set; }
 
         // associations
-        public virtual User User { get; set; }
+
+        // from original code
+        //public virtual User User { get; set; }
         public virtual ICollection<Revision> Revisions { get; set; }
 
         // many to many user-project

@@ -339,20 +339,39 @@ namespace BussinessManager
             }
         }
 
+        // original code
+        //public Dictionary<int, string> GetProjectsFromUserID(int userID)
+        //{
+        //    using (var db = new MonokayuDbContext())
+        //    {
+        //        var commentsFromUser = from u in db.Users
+        //                               join p in db.Projects on u.UserID equals p.UserID                                       
+        //                               where p.UserID == userID
+        //                               select new
+        //                               {
+        //                                   p.ProjectID,
+        //                                   p.projectName
+        //                               };
+
+        //        return commentsFromUser.ToDictionary(p=>p.ProjectID, p=>p.projectName);
+        //    }
+        //}
+
         public Dictionary<int, string> GetProjectsFromUserID(int userID)
         {
             using (var db = new MonokayuDbContext())
             {
-                var commentsFromUser = from u in db.Users
-                                       join p in db.Projects on u.UserID equals p.UserID                                       
-                                       where p.UserID == userID
+                var commentsFromUser = from u in db.Users2
+                                       join up in db.UserProjects on u.UserID equals userID
+                                       join p in db.Projects2 on up.projectID equals p.ProjectID
+                                       where u.UserID == userID
                                        select new
                                        {
                                            p.ProjectID,
                                            p.projectName
                                        };
 
-                return commentsFromUser.ToDictionary(p=>p.ProjectID, p=>p.projectName);
+                return commentsFromUser.ToDictionary(p => p.ProjectID, p => p.projectName);
             }
         }
     }
