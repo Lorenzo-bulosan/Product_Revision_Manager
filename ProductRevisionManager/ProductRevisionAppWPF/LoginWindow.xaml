@@ -5,12 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductRevisionAppWPF"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="450" Width="600">
-    <Grid VerticalAlignment="Center">
-        <StackPanel>
-            <TextBox x:Name="TextName">username</TextBox>
-            <TextBox x:Name="TextSurname">password</TextBox>
-            <Button x:Name="ButtonLogin" Click="ButtonLogin_Click">Login</Button>
-        </StackPanel>        
+        Title="LoginWindow" Height="450" Width="600" WindowStyle="None">
+    <Grid VerticalAlignment="Center" Background="#FFF" Height="450">
+
+        <Border CornerRadius="10,10,10,10" Background="#FF673AB7" BorderBrush="GhostWhite" BorderThickness="5" >
+            <StackPanel VerticalAlignment="Center" Width="400">
+                <Image Source="/Monokayu1-Transparent.png" ></Image>
+                <TextBox x:Name="TextName" Background="GhostWhite">username</TextBox>
+                <TextBox x:Name="TextSurname" Background="GhostWhite">password</TextBox>
+                <Button x:Name="ButtonLogin" Click="ButtonLogin_Click">Login</Button>
+            </StackPanel>
+        </Border>
+        
     </Grid>
 </Window>
