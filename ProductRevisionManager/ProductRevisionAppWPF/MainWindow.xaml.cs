@@ -241,13 +241,18 @@ namespace ProductRevisionAppWPF
 
         private void ButtonAddRevision_Click(object sender, RoutedEventArgs e)
         {
-            // if no date selected automatically set deadline to 1 week from now
-            if (_selectedDeadLineForNewRevision == new DateTime())
+            if (_projectID != 0)
             {
-                _selectedDeadLineForNewRevision = DateTime.Now.AddDays(7);
+                // if no date selected automatically set deadline to 1 week from now
+                if (_selectedDeadLineForNewRevision == new DateTime())
+                {
+                    _selectedDeadLineForNewRevision = DateTime.Now.AddDays(7);
+                }
+
+                _instance.GenerateRevisionForProjectID(_projectID, _selectedDeadLineForNewRevision);
+                GetRevisionsFromProjectID(_projectID);
             }
-            _instance.GenerateRevisionForProjectID(_projectID, _selectedDeadLineForNewRevision);
-            GetRevisionsFromProjectID(_projectID);
+            
         }
 
         private void DatePickerNewRevisionDeadline_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
