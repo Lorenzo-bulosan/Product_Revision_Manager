@@ -232,5 +232,12 @@ namespace ProductRevisionAppWPF
         {
             ComboBoxProjects.ItemsSource = _instance.GetProjectsFromUserID(_userId);
         }
+
+        private void ButtonLogout_Click(object sender, RoutedEventArgs e)
+        {
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
+        }
     }
 }

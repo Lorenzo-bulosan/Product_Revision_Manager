@@ -68,7 +68,7 @@
                                       SelectedValuePath="Key" 
                                       DisplayMemberPath="Value" 
                                       SelectionChanged="ComboBoxProject_SelectionChanged" FontSize="15" Width="150"/>
-                <Button Width="60" Height="60">
+                <Button x:Name="ButtonLogout" Width="60" Height="60" Click="ButtonLogout_Click">
                     <materialDesign:PackIcon Kind="Logout" Height="30" Width="30"/>
                 </Button>
             </StackPanel>
