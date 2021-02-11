@@ -20,16 +20,15 @@ namespace ProductRevisionAppWPF
 
     public partial class MainWindow : Window
     {
-        // testing in development: "logged in user"
-        private int _userId = 1; //13, 14, 15
-        private string _firstName = "Lorenzo";
-        private string _lastName = "Bulosan";
+        private int _userId = 1; 
+        private string _firstName;
+        private string _lastName;
         private int _projectID;
         private string _projectName;
         private int _selectedRevision = 0;
         private string _revisionDeadline;
         private int _urgencyForNewTask = 1;
-        //
+        private DateTime _selectedDeadLineForNewRevision;
 
         private Dictionary<int, string> _urgencyDict = new Dictionary<int, string>()
         {
@@ -242,7 +241,13 @@ namespace ProductRevisionAppWPF
 
         private void ButtonAddRevision_Click(object sender, RoutedEventArgs e)
         {
+            _instance.GenerateRevisionForProjectID(_projectID, _selectedDeadLineForNewRevision);
+            GetRevisionsFromProjectID(_projectID);
+        }
 
+        private void DatePickerNewRevisionDeadline_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _selectedDeadLineForNewRevision = (DateTime)DatePickerNewRevisionDeadline.SelectedDate;
         }
     }
 }

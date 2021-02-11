@@ -38,15 +38,6 @@ namespace BussinessManager
             }
         }
 
-        public static void GenerateRevisionForProjectID(int projectId)
-        {
-            using (var db = new MonokayuDbContext())
-            {
-                Console.WriteLine($"Creating some Revision for projectID: {projectId}");
-                db.Add(new Revision() { deadline = new DateTime(), ProjectID = projectId });
-                db.SaveChanges();
-            }
-        }
 
         //public static void GetUsersAndTheirProjects()
         //{
@@ -406,6 +397,15 @@ namespace BussinessManager
                 var user = db.Users2.Where(c => c.UserID == userID).FirstOrDefault();
 
                 return user;
+            }
+        }
+
+        public void GenerateRevisionForProjectID(int projectId, DateTime deadline)
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                db.Add(new Revision() { deadline = deadline, ProjectID = projectId });
+                db.SaveChanges();
             }
         }
     }

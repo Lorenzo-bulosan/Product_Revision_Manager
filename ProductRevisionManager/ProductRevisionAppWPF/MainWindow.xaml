@@ -83,7 +83,7 @@
                 
                 <ComboBox x:Name="ComboBoxRevisions" Text="Revisions" 
                                       IsEditable="true"  IsReadOnly="true" HorizontalAlignment="Left" 
-                                      Margin="5,0,0,0" Foreground="LightSeaGreen"  Background="#FF673AB7"
+                                      Margin="5,0,0,0" Foreground="LightSeaGreen"  Background="#FF724FB0"
                                       SelectedValuePath="Key" 
                                       DisplayMemberPath="Value" 
                                       SelectionChanged="ComboBoxRevisions_SelectionChanged" FontSize="15" Width="150"/>
@@ -154,7 +154,7 @@
                     <Grid Grid.Row="0" Grid.Column="0">
                         <StackPanel Width="200" HorizontalAlignment="Left" Background="#FF472076">
                             
-                            <DatePicker x:Name="DatePickerNewRevisionDeadline" Margin="0,20,0,0" Foreground="Black" Background="#FFF9F8F8" Width="auto"></DatePicker>
+                            <DatePicker x:Name="DatePickerNewRevisionDeadline" Margin="0,20,0,0" Foreground="Black" Background="#FFF9F8F8" Width="auto" SelectedDateChanged="DatePickerNewRevisionDeadline_SelectedDateChanged"></DatePicker>
                             
                             <Button x:Name="ButtonAddRevision" Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Click="ButtonAddRevision_Click">
                                 <StackPanel Orientation="Horizontal" Height="30" HorizontalAlignment="Left">                                 
@@ -206,6 +206,8 @@
                                            AcceptsReturn="True"
                                            >
                                     Once selected choose revision you want to add a task to on the dropdown menu
+                                    - you can add a task once a revision is selected
+                                    - you can create a new revision
                                 </TextBox>
                                 <TextBox x:Name="TextCurrentTaskURL" Foreground="{StaticResource PrimaryHueMidBrush}" 
                                            HorizontalAlignment="Left" Margin="0,25,0,10"  FontSize="20"
