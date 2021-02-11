@@ -5,14 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductRevisionAppWPF"
         mc:Ignorable="d"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
         Title="LoginWindow" Height="450" Width="600" WindowStyle="None">
     <Grid VerticalAlignment="Center" Background="#FFF" Height="450">
 
         <Border CornerRadius="10,10,10,10" Background="#FF673AB7" BorderBrush="GhostWhite" BorderThickness="5" >
             <StackPanel VerticalAlignment="Center" Width="400">
                 <Image Source="/Monokayu1-Transparent.png" ></Image>
-                <TextBox x:Name="TextName" Background="GhostWhite">username</TextBox>
-                <TextBox x:Name="TextSurname" Background="GhostWhite">password</TextBox>
+                <TextBox x:Name="TextName" Background="GhostWhite" materialDesign:HintAssist.Hint="Name"></TextBox>
+                <TextBox x:Name="TextSurname" Background="GhostWhite" materialDesign:HintAssist.Hint="Surname"></TextBox>
+                <TextBox x:Name="TextPassword" Background="GhostWhite" materialDesign:HintAssist.Hint="Password"></TextBox>
                 <Button x:Name="ButtonLogin" Click="ButtonLogin_Click">Login</Button>
             </StackPanel>
         </Border>

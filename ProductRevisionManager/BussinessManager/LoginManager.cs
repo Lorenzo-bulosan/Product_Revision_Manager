@@ -10,13 +10,16 @@ namespace BussinessManager
 {
     public class LoginManager
     {
-        public static int Login(string name, string surname)
+        public static int Login(string name, string surname, string password)
         {
             using (var db = new MonokayuDbContext())
             {
                 var userInfo = db.Users2
                      .Where(u => u.firstName == name)
-                     .Where(u => u.lastName == surname).FirstOrDefault();
+                     .Where(u => u.lastName == surname)
+                     .Where(u=> u.password == password)
+                     .FirstOrDefault();
+                     
 
                 if (userInfo != null)
                 {

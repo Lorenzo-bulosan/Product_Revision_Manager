@@ -11,34 +11,6 @@ namespace BussinessManager
     public class RevisionManager
     {
         
-        public static void GenerateUserTestData()
-        {
-            using (var db = new MonokayuDbContext())
-            {
-                Console.WriteLine("Creating some Users");
-
-                db.Add(new User() { firstName = "Lorenzo0", lastName = "Bulosan", securityLevel = 0, password = "12345678" });
-                db.Add(new User() { firstName = "Angel", lastName = "Hidalgo", securityLevel = 1, password = "12345678" });
-                db.Add(new User() { firstName = "Taner", lastName = "Cagali", securityLevel = 1, password = "12345678" });
-
-                db.SaveChanges();
-            }
-        }
-
-        public static void GenerateProjectTestData()
-        {
-            using (var db = new MonokayuDbContext())
-            {
-                Console.WriteLine("Creating some projects");
-
-                db.Add(new Project() { projectName = "project1", UserID = 13 });
-                db.Add(new Project() { projectName = "project2", UserID = 14 });
-                db.Add(new Project() { projectName = "project3", UserID = 14 }); 
-                db.SaveChanges();
-            }
-        }
-
-        // for wpf
         public RevisionTask SelectedRevisionTask { get; set; }
 
         public void SetSelectedRevisionTask(Object ListBoxSelectedItem)
@@ -155,24 +127,6 @@ namespace BussinessManager
                 }
             }
         }
-
-        // original code
-        //public Dictionary<int, string> GetProjectsFromUserID(int userID)
-        //{
-        //    using (var db = new MonokayuDbContext())
-        //    {
-        //        var commentsFromUser = from u in db.Users
-        //                               join p in db.Projects on u.UserID equals p.UserID                                       
-        //                               where p.UserID == userID
-        //                               select new
-        //                               {
-        //                                   p.ProjectID,
-        //                                   p.projectName
-        //                               };
-
-        //        return commentsFromUser.ToDictionary(p=>p.ProjectID, p=>p.projectName);
-        //    }
-        //}
 
         public Dictionary<int, string> GetProjectsFromUserID(int userID)
         {

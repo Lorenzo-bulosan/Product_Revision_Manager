@@ -30,7 +30,7 @@ namespace ProductRevisionAppWPF
         {
             try
             {
-                int validUserID = LoginManager.Login(TextName.Text, TextSurname.Text);
+                int validUserID = LoginManager.Login(TextName.Text, TextSurname.Text, TextPassword.Text);
                 RedirectToNewWindowWithUserID(validUserID);
             }
             catch (ArgumentException er)
