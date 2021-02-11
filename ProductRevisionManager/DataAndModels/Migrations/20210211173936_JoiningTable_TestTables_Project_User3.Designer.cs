@@ -4,14 +4,16 @@ using DataAndModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAndModels.Migrations
 {
     [DbContext(typeof(MonokayuDbContext))]
-    partial class MonokayuDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210211173936_JoiningTable_TestTables_Project_User3")]
+    partial class JoiningTable_TestTables_Project_User3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

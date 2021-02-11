@@ -48,73 +48,79 @@ namespace BussinessManager
             }
         }
 
-        public static void GetUsersAndTheirProjects()
-        {
-            using (var db = new MonokayuDbContext())
-            {
-                Console.WriteLine("\nRetrieving all users and their projects");
-                var userProjectsQuery = 
-                    db.Users
-                    .Join(
-                        db.Projects ,
-                        u => u.UserID,
-                        p => p.UserID,
-                        (u, p) => new {p, u}
-                    );
+        //public static void GetUsersAndTheirProjects()
+        //{
+        //    using (var db = new MonokayuDbContext())
+        //    {
+        //        Console.WriteLine("\nRetrieving all users and their projects");
+        //        var userProjectsQuery = 
+        //            db.Users2
+        //            .Join(
+        //                db.Projects2 ,
+        //                u => u.UserID,
+        //                p => p.user,
+        //                (u, p) => new {p, u}
+        //            );
 
-                foreach (var item in userProjectsQuery)
-                {
-                    Console.WriteLine($"Users {item.u.firstName} of ID: {item.u.UserID}");
-                    Console.WriteLine($"Projects of this user: {item.p.projectName}");
-                }
-            }
-        }
+        //        foreach (var item in userProjectsQuery)
+        //        {
+        //            Console.WriteLine($"Users {item.u.firstName} of ID: {item.u.UserID}");
+        //            Console.WriteLine($"Projects of this user: {item.p.projectName}");
+        //        }
+        //    }
+        //}
 
-        public static void GetProjectInfoFromUserID(int id)
-        {
-            using (var db = new MonokayuDbContext())
-            {
-                Console.WriteLine($"\nRetrieving project info from userid: {id}");
-                var userProjectQuery =
-                    db.Users
-                    .Join(
-                        db.Projects,
-                        u => u.UserID,
-                        p => p.UserID,
-                        (u, p) => new { p, u }
-                    ).Where(user => user.u.UserID == id);
+        //public static void GetProjectInfoFromUserID(int id)
+        //{
+        //    using (var db = new MonokayuDbContext())
+        //    {
+        //        Console.WriteLine($"\nRetrieving project info from userid: {id}");
+        //        var userProjectQuery =
+        //            db.Users
+        //            .Join(
+        //                db.Projects,
+        //                u => u.UserID,
+        //                p => p.UserID,
+        //                (u, p) => new { p, u }
+        //            ).Where(user => user.u.UserID == id);
 
-                foreach (var userProject in userProjectQuery)
-                {
-                    Console.WriteLine($"project name: {userProject.p.projectName}");
-                }
-            }
-        }
+        //        foreach (var userProject in userProjectQuery)
+        //        {
+        //            Console.WriteLine($"project name: {userProject.p.projectName}");
+        //        }
+        //    }
+        //}
 
         public static void GetProjectsAndTheirRevisionsFromUsers()
         {
+            Console.WriteLine($"\nQuerying projects and their revisions from all users");
+
             using (var db = new MonokayuDbContext())
             {
-                Console.WriteLine("\nRetrieving users with projects that have revisions");
-                var projectRevisionQuery =
-                    db.Users
-                    .Join(
-                        db.Projects,
-                        u => u.UserID,
-                        p => p.UserID,
-                        (u, p) => new { p, u }
-                    ).Join(
-                        db.Revisions,
-                        u => u.p.ProjectID,
-                        rr => rr.ProjectID,
-                        (rr, u) => new { u, rr }
-                    );
+                var commentsFromUser = from u in db.Users2
+                                       join up in db.UserProjects on u.UserID equals up.userID
+                                       join p in db.Projects2 on up.projectID equals p.ProjectID
+                                       join r in db.Revisions on p.ProjectID equals r.ProjectID
+                                       join t in db.RevisionTasks on r.RevisionID equals t.RevisionID
+                                       join c in db.TaskComments on t.TaskID equals c.TaskID                                      
+                                       select new
+                                       {
+                                           u.UserID,
+                                           u.firstName,
+                                           u.lastName,
+                                           p.ProjectID,
+                                           p.projectName,
+                                           r.RevisionID,
+                                           r.RevisionTasks,
+                                           c.comment
+                                       };
 
-                foreach (var item in projectRevisionQuery)
+                foreach (var item in commentsFromUser)
                 {
-                    Console.WriteLine($"Users {item.rr.u.firstName} of ID: {item.rr.u.UserID}");
-                    Console.WriteLine($"ProjectsID: {item.rr.p.ProjectID} with name: {item.rr.p.projectName}");
-                    Console.WriteLine($"Has this RevisionID: {item.u.RevisionID} with deadline {item.u.deadline}");
+                    Console.WriteLine($"{item.firstName} {item.lastName}" +
+                                      $"\n{item.ProjectID} {item.projectName}" +
+                                      $"\n{item.RevisionID} {item.RevisionTasks}" +
+                                      $"\n{item.comment}");
                 }
             }
         }
@@ -188,21 +194,31 @@ namespace BussinessManager
 
             using (var db = new MonokayuDbContext())
             {
-                var CommentQuery =
-                    db.RevisionTasks
-                    .Join(
-                        db.TaskComments,
-                        rt => rt.TaskID,
-                        tc => tc.TaskID,
-                        (rt, tc) => new { rt, tc }
-                    ).Where(c => c.rt.TaskID == taskID);
+                var commentsFromUser = from u in db.Users2
+                                       join up in db.UserProjects on u.UserID equals up.userID
+                                       join p in db.Projects2 on up.projectID equals p.ProjectID
+                                       join r in db.Revisions on p.ProjectID equals r.ProjectID
+                                       join t in db.RevisionTasks on r.RevisionID equals t.RevisionID
+                                       join c in db.TaskComments on t.TaskID equals c.TaskID
+                                       where t.TaskID == taskID
+                                       select new
+                                       {
+                                           u.UserID,
+                                           u.firstName,
+                                           u.lastName,
+                                           p.ProjectID,
+                                           p.projectName,
+                                           r.RevisionID,
+                                           r.RevisionTasks,
+                                           c.comment
+                                       };
 
-                foreach (var comment in CommentQuery)
+                foreach (var item in commentsFromUser)
                 {
-                    Console.WriteLine($"tasksID {comment.rt.TaskID} has commentID {comment.tc.CommentID}");
-                    Console.WriteLine($"Details of this comment: " +
-                                      $"\n -comment: '{comment.tc.comment}' " +
-                                      $"\n -time written: {comment.tc.time}");
+                    Console.WriteLine($"{item.firstName} {item.lastName}" +
+                                      $"\n{item.ProjectID} {item.projectName}" +
+                                      $"\n{item.RevisionID} {item.RevisionTasks}" +
+                                      $"\n{item.comment}");
                 }
             }
         }
@@ -246,6 +262,7 @@ namespace BussinessManager
             }
         }
 
+        // CHANGE HERE FOR PROJECT2 ----  check
         public Dictionary<int,DateTime> GetRevisionsFromProject(int projectID)
         {
             using (var db = new MonokayuDbContext())
@@ -305,8 +322,9 @@ namespace BussinessManager
         {
             using (var db = new MonokayuDbContext())
             {
-                var commentsFromUser = from u in db.Users
-                                       join p in db.Projects on u.UserID equals p.UserID
+                var commentsFromUser = from u in db.Users2
+                                       join up in db.UserProjects on u.UserID equals up.userID
+                                       join p in db.Projects2 on up.projectID equals p.ProjectID
                                        join r in db.Revisions on p.ProjectID equals r.ProjectID
                                        join t in db.RevisionTasks on r.RevisionID equals t.RevisionID
                                        join c in db.TaskComments on t.TaskID equals c.TaskID
@@ -362,7 +380,7 @@ namespace BussinessManager
             using (var db = new MonokayuDbContext())
             {
                 var commentsFromUser = from u in db.Users2
-                                       join up in db.UserProjects on u.UserID equals userID
+                                       join up in db.UserProjects on u.UserID equals up.userID
                                        join p in db.Projects2 on up.projectID equals p.ProjectID
                                        where u.UserID == userID
                                        select new

@@ -25,7 +25,7 @@ namespace ProductRevisionAppWPF
         private string _lastName = "Bulosan";
         private int _projectID;
         private string _projectName;
-        private int _userID = 14; //13, 14, 15
+        private int _userId = 1; //13, 14, 15
         private int _selectedRevision = 0;
         private string _revisionDeadline;
         private int _urgencyForNewTask = 1;
@@ -134,10 +134,14 @@ namespace ProductRevisionAppWPF
         private void ButtonAddTask_Click(object sender, RoutedEventArgs e)
         {
             // add 
-            _instance.AddTaskToRevision(_selectedRevision, TextBoxTitle.Text, TextBoxDescription.Text, _urgencyForNewTask);
+            if (_selectedRevision != 0)
+            {
+                _instance.AddTaskToRevision(_selectedRevision, TextBoxTitle.Text, TextBoxDescription.Text, _urgencyForNewTask);
 
-            // refresh
-            ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
+                // refresh
+                ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
+            }
+            
 
         }
 
@@ -210,7 +214,7 @@ namespace ProductRevisionAppWPF
 
         private void PopulateProjectsDependOnUser()
         {
-            ComboBoxProjects.ItemsSource = _instance.GetProjectsFromUserID(_userID);
+            ComboBoxProjects.ItemsSource = _instance.GetProjectsFromUserID(_userId);
         }
     }
 }
