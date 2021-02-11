@@ -150,13 +150,6 @@
                                     <TextBlock Text="Add Task" Margin="20 0" FontSize="15" VerticalAlignment="Center" Foreground="White"/>
                                 </StackPanel>
                             </Button>
-
-                            <Button Style="{StaticResource MaterialDesignFlatButton}"  HorizontalAlignment="Left">
-                                <StackPanel Orientation="Horizontal" Height="30" >
-                                    <materialDesign:PackIcon Kind="Plus" Width="20" Height="20" VerticalAlignment="Center" Foreground="white"/>
-                                    <TextBlock Text="Add Revision" Margin="20 0" FontSize="15" VerticalAlignment="Center" Foreground="White"/>
-                                </StackPanel>
-                            </Button>
                         </StackPanel>
                     </Grid>
 

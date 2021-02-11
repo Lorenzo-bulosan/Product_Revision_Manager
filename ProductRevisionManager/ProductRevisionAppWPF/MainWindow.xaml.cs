@@ -160,12 +160,15 @@ namespace ProductRevisionAppWPF
 
         private void UpdateRevisionTask(object sender, RoutedEventArgs e)
         {
-            // update
-            _instance.UpdateRevisionTask(_instance.SelectedRevisionTask.TaskID, TextCurrentTaskTitle.Text, TextCurrentTaskDescription.Text, ComboBoxCurrentTaskUrgency.SelectedIndex, ComboBoxCurrentTaskProgress.SelectedIndex, TextCurrentTaskURL.Text);
+            if (_instance.SelectedRevisionTask != null)
+            {
+                // update
+                _instance.UpdateRevisionTask(_instance.SelectedRevisionTask.TaskID, TextCurrentTaskTitle.Text, TextCurrentTaskDescription.Text, ComboBoxCurrentTaskUrgency.SelectedIndex, ComboBoxCurrentTaskProgress.SelectedIndex, TextCurrentTaskURL.Text);
 
-            // refresh
-            PopulateMainScreenWithCurrentTaskSelected();
-            ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
+                // refresh
+                PopulateMainScreenWithCurrentTaskSelected();
+                ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
+            }
         }
 
         private void RetrieveCommentsForTask()
