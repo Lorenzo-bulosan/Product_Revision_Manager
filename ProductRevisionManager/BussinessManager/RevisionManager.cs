@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAndModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace BussinessManager
 {
@@ -297,6 +298,29 @@ namespace BussinessManager
                 var CommentQuery = db.TaskComments.Where(c => c.TaskID == taskID);
 
                 return CommentQuery.ToList();
+            }
+        }
+
+        public IEnumerable<Object> RetrieveCommentsOfTaskFromUser(int taskID)
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                var commentsFromUser = from u in db.Users
+                                       join p in db.Projects on u.UserID equals p.UserID
+                                       join r in db.Revisions on p.ProjectID equals r.ProjectID
+                                       join t in db.RevisionTasks on r.RevisionID equals t.RevisionID
+                                       join c in db.TaskComments on t.TaskID equals c.TaskID
+                                       where t.TaskID == taskID    
+                                       select new
+                                       {
+                                            u.firstName,
+                                            u.lastName,
+                                            c.time,
+                                            c.comment,
+                                            c
+                                       };
+
+                return commentsFromUser.ToList();
             }
         }
 

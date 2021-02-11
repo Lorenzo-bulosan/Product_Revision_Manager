@@ -228,12 +228,17 @@
                             <ListView x:Name="ListViewComments">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <WrapPanel>
-                                            <TextBlock Text="time: " />
-                                            <TextBlock Text="{Binding time}" FontWeight="Bold" />
-                                            <TextBlock Text="comment: " />
-                                            <TextBlock Text="{Binding comment}" FontWeight="Bold" />
-                                        </WrapPanel>
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding firstName}" FontWeight="Bold" />
+                                                <TextBlock Text=" " />
+                                                <TextBlock Text="{Binding lastName}" FontWeight="Bold" />                                                
+                                                <TextBlock Text="{Binding time}"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding comment}"/>
+                                            </StackPanel>                                            
+                                        </StackPanel>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
