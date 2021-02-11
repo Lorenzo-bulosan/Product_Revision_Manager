@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BussinessManager;
 
 namespace ProductRevisionAppWPF
 {
@@ -22,11 +23,27 @@ namespace ProductRevisionAppWPF
         public LoginWindow()
         {
             InitializeComponent();
+            
         }
 
         private void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
+            try
+            {
+                int validUserID = LoginManager.Login(TextName.Text, TextSurname.Text);
+                RedirectToNewWindowWithUserID(validUserID);
+            }
+            catch (ArgumentException er)
+            {
+                MessageBox.Show(er.Message);
+            }
+            
+            
+        }
+
+        private void RedirectToNewWindowWithUserID(int validUserID)
+        {
+            MainWindow mainWindow = new MainWindow(validUserID);
             mainWindow.Show();
             this.Close();
         }

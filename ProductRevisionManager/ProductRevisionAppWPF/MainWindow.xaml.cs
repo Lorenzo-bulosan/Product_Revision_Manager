@@ -49,23 +49,22 @@ namespace ProductRevisionAppWPF
 
         private RevisionManager _instance;
 
-        public MainWindow()
+        public MainWindow(int userID)
         {
-            _instance = new RevisionManager();
             InitializeComponent();
 
-            // log in here
+            _instance = new RevisionManager();
 
+            _userId = userID;
+
+            // populate information
             SetCurrentUserInformation();
-
             PopulateProjectInfo();
             GetRevisionsFromProjectID(_projectID);
             GetAllTasksFromRevisionAndPopulate();
-
             PopulateComboBoxUrgency();
             PopulateComboBoxProgress();
             PopulateProjectsDependOnUser();
-
         }
 
         private void SetCurrentUserInformation()

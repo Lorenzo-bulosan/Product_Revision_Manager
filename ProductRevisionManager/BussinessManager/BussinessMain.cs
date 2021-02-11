@@ -18,7 +18,7 @@ namespace BussinessManager
             //RevisionManager.GetProjectInfoFromUserID(14);
 
             /* Generates revision for a project and retrieves */
-            RevisionManager.GenerateRevisionForProjectID(1);
+            //RevisionManager.GenerateRevisionForProjectID(1);
             //RevisionManager.GetProjectsAndTheirRevisionsFromUsers();
 
             /* Generate task for a specific revision and retrieve */
@@ -28,6 +28,9 @@ namespace BussinessManager
             /* Generate comment for a task and retrieve */
             //RevisionManager.AddCommentToTaskID(1);
             //RevisionManager.GetCommentsFromTaskID(1);
+
+            //int res = LoginManager.Login("adfasd","adsasd");
+            //Console.WriteLine(res.ToString());
         }
 
     }
