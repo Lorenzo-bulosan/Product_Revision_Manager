@@ -159,7 +159,13 @@ namespace ProductRevisionAppWPF
 
         private void RetrieveCommentsForTask()
         {
-            ListViewComments.ItemsSource = _instance.RetrieveCommentsFromTaskID(_instance.SelectedRevisionTask.TaskID);
+            var selectectTask = _instance.SelectedRevisionTask;
+
+            if (selectectTask!=null)
+            {
+                ListViewComments.ItemsSource = _instance.RetrieveCommentsFromTaskID(_instance.SelectedRevisionTask.TaskID);
+            }
+
         }
     }
 }
