@@ -147,7 +147,7 @@ namespace ProductRevisionAppWPF
             // add 
             if (_selectedRevision != 0)
             {
-                _instance.AddTaskToRevision(_selectedRevision, TextBoxTitle.Text, TextBoxDescription.Text, _urgencyForNewTask);
+                _instance.AddTaskToRevision(_selectedRevision, TextBoxTitle.Text, TextBoxDescription.Text, _urgencyForNewTask, 0, TextBoxLink.Text);
 
                 // refresh
                 ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
@@ -241,6 +241,11 @@ namespace ProductRevisionAppWPF
 
         private void ButtonAddRevision_Click(object sender, RoutedEventArgs e)
         {
+            // if no date selected automatically set deadline to 1 week from now
+            if (_selectedDeadLineForNewRevision == new DateTime())
+            {
+                _selectedDeadLineForNewRevision = DateTime.Now.AddDays(7);
+            }
             _instance.GenerateRevisionForProjectID(_projectID, _selectedDeadLineForNewRevision);
             GetRevisionsFromProjectID(_projectID);
         }
