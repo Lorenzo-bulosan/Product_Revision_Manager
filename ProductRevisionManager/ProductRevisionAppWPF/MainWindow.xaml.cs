@@ -58,7 +58,7 @@ namespace ProductRevisionAppWPF
 
             SetCurrentUserInformation();
 
-            PopulateTitles();
+            PopulateProjectInfo();
             GetRevisionsFromProjectID(_projectID);
             GetAllTasksFromRevisionAndPopulate();
 
@@ -76,7 +76,7 @@ namespace ProductRevisionAppWPF
             _lastName = _instance.GetUserInformationFromUserID(_userId).lastName;
         }
 
-        private void PopulateTitles()
+        private void PopulateProjectInfo()
         {
             LabelUserName.Content = $"{_firstName} {_lastName}";
             LabelProjectSelected.Content = $"Project: {_projectName}";
@@ -100,7 +100,7 @@ namespace ProductRevisionAppWPF
         {
             _instance.SetSelectedRevisionTask(ListBoxTasks.SelectedItem); 
             PopulateMainScreenWithCurrentTaskSelected();
-            RetrieveCommentsForTask();
+            RetrieveCommentsForTask();            
         }
 
         private void PopulateMainScreenWithCurrentTaskSelected()
@@ -120,10 +120,12 @@ namespace ProductRevisionAppWPF
             }
             else
             {
-                TextCurrentTaskTitle.Text = "No title";
-                ComboBoxCurrentTaskUrgency.SelectedValue = 1;
-                TextCurrentTaskURL.Text = "URL";
-                TextCurrentTaskDescription.Text = "No description";
+                // Default values when refreshed
+                TextCurrentTaskTitle.Text = "Select a revision from the dropdown!";
+                TextCurrentTaskDescription.Text = "Select a task from the list";
+                TextCurrentTaskURL.Text = "Check me out at: https://github.com/Lorenzo-bulosan";
+                //ComboBoxCurrentTaskUrgency.SelectedValue = 1;
+
             }
         }
 
@@ -134,9 +136,10 @@ namespace ProductRevisionAppWPF
                 KeyValuePair<int, DateTime> _selectedRevisionInfo = (KeyValuePair<int, DateTime>)ComboBoxRevisions.SelectedItem;
                 _selectedRevision = _selectedRevisionInfo.Key;
                 _revisionDeadline = _selectedRevisionInfo.Value.ToString();
-                SetCurrentUserInformation();
+ 
                 GetRevisionsFromProjectID(_projectID);
                 ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
+                PopulateProjectInfo();
             }
             
         }
@@ -157,7 +160,7 @@ namespace ProductRevisionAppWPF
 
         private void ComboBoxUrgency_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _urgencyForNewTask = (int)ComboBoxUrgency.SelectedValue;
+            _urgencyForNewTask = (int)ComboBoxUrgency.SelectedValue;            
         }
 
         private void PopulateComboBoxUrgency()
@@ -192,7 +195,11 @@ namespace ProductRevisionAppWPF
             if (selectectTask!=null)
             {
                 //ListViewComments.ItemsSource = _instance.RetrieveCommentsFromTaskID(_instance.SelectedRevisionTask.TaskID);
-                ListViewComments.ItemsSource = _instance.RetrieveCommentsOfTaskFromUser(_userId);
+                ListViewComments.ItemsSource = _instance.RetrieveCommentsOfTaskFromUser(_userId, selectectTask.TaskID);
+            }
+            else
+            {
+                ListViewComments.ItemsSource = null;
             }
 
         }
@@ -201,7 +208,7 @@ namespace ProductRevisionAppWPF
         {
             var selectectTask = _instance.SelectedRevisionTask;
 
-            if (selectectTask != null)
+            if (selectectTask != null && TextBoxCommentInput.Text!="")
             {
                 _instance.AddCommentToTaskID(selectectTask.TaskID, TextBoxCommentInput.Text, $"{_firstName} {_lastName}");
                 RetrieveCommentsForTask();
@@ -219,7 +226,7 @@ namespace ProductRevisionAppWPF
             GetRevisionsFromProjectID(_projectID);
 
             // refresh
-            SetCurrentUserInformation();
+            PopulateProjectInfo();
         }
 
         private void PopulateProjectsDependOnUser()

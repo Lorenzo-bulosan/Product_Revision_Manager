@@ -318,7 +318,7 @@ namespace BussinessManager
             }
         }
 
-        public IEnumerable<Object> RetrieveCommentsOfTaskFromUser(int userID)
+        public IEnumerable<Object> RetrieveCommentsOfTaskFromUser(int userID, int taskId)
         {
             using (var db = new MonokayuDbContext())
             {
@@ -329,6 +329,7 @@ namespace BussinessManager
                                        join t in db.RevisionTasks on r.RevisionID equals t.RevisionID
                                        join c in db.TaskComments on t.TaskID equals c.TaskID
                                        where u.UserID == userID 
+                                       where t.TaskID == taskId
                                        select new
                                        {
                                             u.firstName,
@@ -344,17 +345,21 @@ namespace BussinessManager
 
         public void AddCommentToTaskID(int taskID, string comment, string senderName)
         {
-            using (var db = new MonokayuDbContext())
-            {
-                db.Add(new TaskComment
-                {
-                    TaskID = taskID,
-                    comment = comment,
-                    senderName = senderName,
-                    time = DateTime.Now
-                }); ;
 
-                db.SaveChanges();
+            if(comment != "")
+            {
+                using (var db = new MonokayuDbContext())
+                {
+                    db.Add(new TaskComment
+                    {
+                        TaskID = taskID,
+                        comment = comment,
+                        senderName = senderName,
+                        time = DateTime.Now
+                    }); ;
+
+                    db.SaveChanges();
+                }
             }
         }
 
