@@ -318,7 +318,7 @@ namespace BussinessManager
             }
         }
 
-        public IEnumerable<Object> RetrieveCommentsOfTaskFromUser(int taskID)
+        public IEnumerable<Object> RetrieveCommentsOfTaskFromUser(int userID)
         {
             using (var db = new MonokayuDbContext())
             {
@@ -328,21 +328,21 @@ namespace BussinessManager
                                        join r in db.Revisions on p.ProjectID equals r.ProjectID
                                        join t in db.RevisionTasks on r.RevisionID equals t.RevisionID
                                        join c in db.TaskComments on t.TaskID equals c.TaskID
-                                       where t.TaskID == taskID    
+                                       where u.UserID == userID 
                                        select new
                                        {
                                             u.firstName,
                                             u.lastName,
                                             c.time,
                                             c.comment,
-                                            c
+                                            c.senderName
                                        };
 
                 return commentsFromUser.ToList();
             }
         }
 
-        public void AddCommentToTaskID(int taskID, string comment)
+        public void AddCommentToTaskID(int taskID, string comment, string senderName)
         {
             using (var db = new MonokayuDbContext())
             {
@@ -350,8 +350,9 @@ namespace BussinessManager
                 {
                     TaskID = taskID,
                     comment = comment,
+                    senderName = senderName,
                     time = DateTime.Now
-            });
+                }); ;
 
                 db.SaveChanges();
             }
@@ -390,6 +391,16 @@ namespace BussinessManager
                                        };
 
                 return commentsFromUser.ToDictionary(p => p.ProjectID, p => p.projectName);
+            }
+        }
+
+        public User2 GetUserInformationFromUserID(int userID)
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                var user = db.Users2.Where(c => c.UserID == userID).FirstOrDefault();
+
+                return user;
             }
         }
     }

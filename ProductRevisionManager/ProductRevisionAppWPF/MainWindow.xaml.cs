@@ -21,11 +21,11 @@ namespace ProductRevisionAppWPF
     public partial class MainWindow : Window
     {
         // testing in development: "logged in user"
+        private int _userId = 1; //13, 14, 15
         private string _firstName = "Lorenzo";
         private string _lastName = "Bulosan";
         private int _projectID;
         private string _projectName;
-        private int _userId = 1; //13, 14, 15
         private int _selectedRevision = 0;
         private string _revisionDeadline;
         private int _urgencyForNewTask = 1;
@@ -57,6 +57,8 @@ namespace ProductRevisionAppWPF
             // log in here
 
             SetCurrentUserInformation();
+
+            PopulateTitles();
             GetRevisionsFromProjectID(_projectID);
             GetAllTasksFromRevisionAndPopulate();
 
@@ -67,6 +69,14 @@ namespace ProductRevisionAppWPF
         }
 
         private void SetCurrentUserInformation()
+        {
+            // retrieving user object but using linq to only extract needed information
+            // for the future if needed to extract more it is left as whole object
+            _firstName = _instance.GetUserInformationFromUserID(_userId).firstName;
+            _lastName = _instance.GetUserInformationFromUserID(_userId).lastName;
+        }
+
+        private void PopulateTitles()
         {
             LabelUserName.Content = $"{_firstName} {_lastName}";
             LabelProjectSelected.Content = $"Project: {_projectName}";
@@ -182,7 +192,7 @@ namespace ProductRevisionAppWPF
             if (selectectTask!=null)
             {
                 //ListViewComments.ItemsSource = _instance.RetrieveCommentsFromTaskID(_instance.SelectedRevisionTask.TaskID);
-                ListViewComments.ItemsSource = _instance.RetrieveCommentsOfTaskFromUser(_instance.SelectedRevisionTask.TaskID);
+                ListViewComments.ItemsSource = _instance.RetrieveCommentsOfTaskFromUser(_userId);
             }
 
         }
@@ -193,7 +203,7 @@ namespace ProductRevisionAppWPF
 
             if (selectectTask != null)
             {
-                _instance.AddCommentToTaskID(selectectTask.TaskID, TextBoxCommentInput.Text);
+                _instance.AddCommentToTaskID(selectectTask.TaskID, TextBoxCommentInput.Text, $"{_firstName} {_lastName}");
                 RetrieveCommentsForTask();
             }
         }

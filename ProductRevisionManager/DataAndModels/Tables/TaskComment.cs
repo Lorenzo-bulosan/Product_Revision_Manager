@@ -22,6 +22,7 @@ namespace DataAndModels
         public int TaskID { get; set; }
         public DateTime time { get; set; }
         public string comment { get; set; }
+        public string senderName { get; set; }
 
         // associations
         public virtual RevisionTask RevisionTask { get; set; }

@@ -231,9 +231,8 @@
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical">
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding firstName}" FontWeight="Bold" />
-                                                <TextBlock Text=" " />
-                                                <TextBlock Text="{Binding lastName}" FontWeight="Bold" />                                                
+                                                <TextBlock Text="{Binding senderName}" FontWeight="Bold" />
+                                                <TextBlock Text=" "/>
                                                 <TextBlock Text="{Binding time}"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal">
