@@ -289,5 +289,15 @@ namespace BussinessManager
                 db.SaveChanges();
             }
         }
+
+        public List<TaskComment> RetrieveCommentsFromTaskID(int taskID)
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                var CommentQuery = db.TaskComments.Where(c => c.TaskID == taskID);
+
+                return CommentQuery.ToList();
+            }
+        }
     }
 }

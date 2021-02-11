@@ -85,7 +85,7 @@ namespace ProductRevisionAppWPF
         {
             _instance.SetSelectedRevisionTask(ListBoxTasks.SelectedItem); 
             PopulateMainScreenWithCurrentTaskSelected();
-            
+            RetrieveCommentsForTask();
         }
 
         private void PopulateMainScreenWithCurrentTaskSelected()
@@ -153,8 +153,13 @@ namespace ProductRevisionAppWPF
             _instance.UpdateRevisionTask(_instance.SelectedRevisionTask.TaskID, TextCurrentTaskTitle.Text, TextCurrentTaskDescription.Text, ComboBoxCurrentTaskUrgency.SelectedIndex, ComboBoxCurrentTaskProgress.SelectedIndex, TextCurrentTaskURL.Text);
 
             // refresh
-            //PopulateMainScreenWithCurrentTaskSelected();
+            PopulateMainScreenWithCurrentTaskSelected();
             ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
+        }
+
+        private void RetrieveCommentsForTask()
+        {
+            ListViewComments.ItemsSource = _instance.RetrieveCommentsFromTaskID(_instance.SelectedRevisionTask.TaskID);
         }
     }
 }
