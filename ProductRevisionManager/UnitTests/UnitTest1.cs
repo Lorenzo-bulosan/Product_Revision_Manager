@@ -24,11 +24,11 @@ namespace UnitTests
             using (var db = new MonokayuDbContext())
             {
                 var selectedUsers =
-                from u in db.Users
+                from u in db.Users2
                 where u.UserID == _userIdToTest
                 select u;
 
-                db.Users.RemoveRange(selectedUsers);
+                db.Users2.RemoveRange(selectedUsers);
                 db.SaveChanges();
             }
 
@@ -133,11 +133,11 @@ namespace UnitTests
             using (var db = new MonokayuDbContext())
             {
                 var selectedUsers =
-                from u in db.Users
+                from u in db.Users2
                 where u.UserID == _userIdToTest
                 select u;
 
-                db.Users.RemoveRange(selectedUsers);
+                db.Users2.RemoveRange(selectedUsers);
                 db.SaveChanges();
             }
         }

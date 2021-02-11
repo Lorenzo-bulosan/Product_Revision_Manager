@@ -4,14 +4,16 @@ using DataAndModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAndModels.Migrations
 {
     [DbContext(typeof(MonokayuDbContext))]
-    partial class MonokayuDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210211144126_JoiningTable_TestTables_Project_User2")]
+    partial class JoiningTable_TestTables_Project_User2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,6 +43,26 @@ namespace DataAndModels.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("DataAndModels.Project", b =>
+                {
+                    b.Property<int>("ProjectID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("projectName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProjectID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Projects");
+                });
+
             modelBuilder.Entity("DataAndModels.Project2", b =>
                 {
                     b.Property<int>("ProjectID")
@@ -63,6 +85,9 @@ namespace DataAndModels.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<int?>("Project2ProjectID")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProjectID")
                         .HasColumnType("int");
 
@@ -70,6 +95,8 @@ namespace DataAndModels.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("RevisionID");
+
+                    b.HasIndex("Project2ProjectID");
 
                     b.HasIndex("ProjectID");
 
@@ -121,9 +148,6 @@ namespace DataAndModels.Migrations
                     b.Property<string>("comment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("senderName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("time")
                         .HasColumnType("datetime2");
 
@@ -132,6 +156,30 @@ namespace DataAndModels.Migrations
                     b.HasIndex("TaskID");
 
                     b.ToTable("TaskComments");
+                });
+
+            modelBuilder.Entity("DataAndModels.User", b =>
+                {
+                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("firstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("lastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("securityLevel")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserID");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("DataAndModels.User2", b =>
@@ -180,9 +228,24 @@ namespace DataAndModels.Migrations
                     b.ToTable("UserProjects");
                 });
 
+            modelBuilder.Entity("DataAndModels.Project", b =>
+                {
+                    b.HasOne("DataAndModels.User", "User")
+                        .WithMany("Projects")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("DataAndModels.Revision", b =>
                 {
-                    b.HasOne("DataAndModels.Project2", "Project")
+                    b.HasOne("DataAndModels.Project2", null)
+                        .WithMany("Revisions")
+                        .HasForeignKey("Project2ProjectID");
+
+                    b.HasOne("DataAndModels.Project", "Project")
                         .WithMany("Revisions")
                         .HasForeignKey("ProjectID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -232,6 +295,11 @@ namespace DataAndModels.Migrations
                     b.Navigation("Users2");
                 });
 
+            modelBuilder.Entity("DataAndModels.Project", b =>
+                {
+                    b.Navigation("Revisions");
+                });
+
             modelBuilder.Entity("DataAndModels.Project2", b =>
                 {
                     b.Navigation("Revisions");
@@ -247,6 +315,11 @@ namespace DataAndModels.Migrations
             modelBuilder.Entity("DataAndModels.RevisionTask", b =>
                 {
                     b.Navigation("TaskComments");
+                });
+
+            modelBuilder.Entity("DataAndModels.User", b =>
+                {
+                    b.Navigation("Projects");
                 });
 
             modelBuilder.Entity("DataAndModels.User2", b =>
