@@ -246,12 +246,12 @@ namespace BussinessManager
             }
         }
 
-        public List<int> GetRevisionsFromProject(string uniqueName)
+        public List<int> GetRevisionsFromProject(int projectID)
         {
             using (var db = new MonokayuDbContext())
             {
                 var res = from r in db.Revisions 
-                          where r.Project.projectName == uniqueName
+                          where r.Project.ProjectID == projectID
                           select r.RevisionID;
                 return res.ToList();
             }
@@ -336,6 +336,23 @@ namespace BussinessManager
             });
 
                 db.SaveChanges();
+            }
+        }
+
+        public Dictionary<int, string> GetProjectsFromUserID(int userID)
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                var commentsFromUser = from u in db.Users
+                                       join p in db.Projects on u.UserID equals p.UserID                                       
+                                       where p.UserID == userID
+                                       select new
+                                       {
+                                           p.ProjectID,
+                                           p.projectName
+                                       };
+
+                return commentsFromUser.ToDictionary(p=>p.ProjectID, p=>p.projectName);
             }
         }
     }

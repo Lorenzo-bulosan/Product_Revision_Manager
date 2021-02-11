@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BussinessManager;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProductRevisionAppWPF
 {
@@ -22,8 +23,10 @@ namespace ProductRevisionAppWPF
         // testing in development: "logged in user"
         private string _firstName = "Lorenzo";
         private string _lastName = "Bulosan";
-        private string _project = "project2";
-        private int _selectedRevision = 3;
+        private int _projectID;
+        private string _projectName;
+        private int _userID = 14; //14, 15
+        private int _selectedRevision = 0;
         private int _urgencyForNewTask = 1;
         //
 
@@ -53,18 +56,19 @@ namespace ProductRevisionAppWPF
             // log in here
 
             SetCurrentUserInformation();
-            GetRevisionsFromProject(_project);
+            GetRevisionsFromProjectID(_projectID);
             GetAllTasksFromRevisionAndPopulate();
 
             PopulateComboBoxUrgency();
             PopulateComboBoxProgress();
+            PopulateProjectsDependOnUser();
 
         }
 
         private void SetCurrentUserInformation()
         {
             LabelUserName.Content = $"{_firstName} {_lastName}";
-            LabelProjectSelected.Content = $"Project: {_project}";
+            LabelProjectSelected.Content = $"Project: {_projectName}";
             LabelRevisionSelected.Content = $"Revision: {_selectedRevision}";
         }
 
@@ -73,9 +77,9 @@ namespace ProductRevisionAppWPF
             ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
         }
 
-        private void GetRevisionsFromProject(string uniqueProjectName)
+        private void GetRevisionsFromProjectID(int projectId)
         {
-            var revisions = _instance.GetRevisionsFromProject(uniqueProjectName);
+            var revisions = _instance.GetRevisionsFromProject(projectId);
             
             // populate revision combobox
             ComboBoxRevisions.ItemsSource = revisions;
@@ -114,10 +118,14 @@ namespace ProductRevisionAppWPF
 
         private void ComboBoxRevisions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedRevision = (int)ComboBoxRevisions.SelectedItem;
-            SetCurrentUserInformation();
-            GetRevisionsFromProject(_project);
-            ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
+            if (ComboBoxRevisions.SelectedItem != null)
+            {
+                _selectedRevision = (int)ComboBoxRevisions.SelectedItem;
+                SetCurrentUserInformation();
+                GetRevisionsFromProjectID(_projectID);
+                ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
+            }
+            
         }
 
         private void ButtonAddTask_Click(object sender, RoutedEventArgs e)
@@ -178,6 +186,25 @@ namespace ProductRevisionAppWPF
                 _instance.AddCommentToTaskID(selectectTask.TaskID, TextBoxCommentInput.Text);
                 RetrieveCommentsForTask();
             }
+        }
+
+        private void ComboBoxProject_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // get key value pair back when selected
+            KeyValuePair<int, string> projectIdAndValue = (KeyValuePair<int, string>)ComboBoxProjects.SelectedItem;
+
+            // set corresponding information 
+            _projectName = projectIdAndValue.Value;
+            _projectID = projectIdAndValue.Key;
+            GetRevisionsFromProjectID(_projectID);
+
+            // refresh
+            SetCurrentUserInformation();
+        }
+
+        private void PopulateProjectsDependOnUser()
+        {
+            ComboBoxProjects.ItemsSource = _instance.GetProjectsFromUserID(_userID);
         }
     }
 }
