@@ -246,14 +246,14 @@ namespace BussinessManager
             }
         }
 
-        public List<int> GetRevisionsFromProject(int projectID)
+        public Dictionary<int,DateTime> GetRevisionsFromProject(int projectID)
         {
             using (var db = new MonokayuDbContext())
             {
                 var res = from r in db.Revisions 
                           where r.Project.ProjectID == projectID
-                          select r.RevisionID;
-                return res.ToList();
+                          select r;
+                return res.ToDictionary(r=>r.RevisionID, r=>r.deadline);
             }
         }
 

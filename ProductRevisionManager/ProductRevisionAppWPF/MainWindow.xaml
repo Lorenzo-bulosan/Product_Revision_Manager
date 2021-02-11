@@ -140,6 +140,8 @@
                             <ComboBox x:Name="ComboBoxRevisions" Text="Select Revision" 
                                       IsEditable="true"  IsReadOnly="true" HorizontalAlignment="Center" 
                                       Margin="0,5,0,0" Foreground="black"  Background="white"
+                                      SelectedValuePath="Key" 
+                                      DisplayMemberPath="Value" 
                                       SelectionChanged="ComboBoxRevisions_SelectionChanged" FontSize="15" Width="150"/>
 
                             <Button Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">

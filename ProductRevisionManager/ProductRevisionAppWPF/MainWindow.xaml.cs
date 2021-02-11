@@ -25,8 +25,9 @@ namespace ProductRevisionAppWPF
         private string _lastName = "Bulosan";
         private int _projectID;
         private string _projectName;
-        private int _userID = 14; //14, 15
+        private int _userID = 14; //13, 14, 15
         private int _selectedRevision = 0;
+        private string _revisionDeadline;
         private int _urgencyForNewTask = 1;
         //
 
@@ -69,7 +70,7 @@ namespace ProductRevisionAppWPF
         {
             LabelUserName.Content = $"{_firstName} {_lastName}";
             LabelProjectSelected.Content = $"Project: {_projectName}";
-            LabelRevisionSelected.Content = $"Revision: {_selectedRevision}";
+            LabelRevisionSelected.Content = $"Revision: {_revisionDeadline}";
         }
 
         private void GetAllTasksFromRevisionAndPopulate()
@@ -120,7 +121,9 @@ namespace ProductRevisionAppWPF
         {
             if (ComboBoxRevisions.SelectedItem != null)
             {
-                _selectedRevision = (int)ComboBoxRevisions.SelectedItem;
+                KeyValuePair<int, DateTime> _selectedRevisionInfo = (KeyValuePair<int, DateTime>)ComboBoxRevisions.SelectedItem;
+                _selectedRevision = _selectedRevisionInfo.Key;
+                _revisionDeadline = _selectedRevisionInfo.Value.ToString();
                 SetCurrentUserInformation();
                 GetRevisionsFromProjectID(_projectID);
                 ListBoxTasks.ItemsSource = _instance.GetTasksFromRevisionID(_selectedRevision);
