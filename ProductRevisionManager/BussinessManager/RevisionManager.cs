@@ -164,7 +164,7 @@ namespace BussinessManager
             }
         }
 
-        public static void AddCommentToTaskID(int taskID)
+        public static void AddCommentToTaskID_void(int taskID)
         {
             Console.WriteLine($"\nAdding comments to taskID: {taskID}");
 
@@ -297,6 +297,21 @@ namespace BussinessManager
                 var CommentQuery = db.TaskComments.Where(c => c.TaskID == taskID);
 
                 return CommentQuery.ToList();
+            }
+        }
+
+        public void AddCommentToTaskID(int taskID, string comment)
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                db.Add(new TaskComment
+                {
+                    TaskID = taskID,
+                    comment = comment,
+                    time = DateTime.Now
+            });
+
+                db.SaveChanges();
             }
         }
     }

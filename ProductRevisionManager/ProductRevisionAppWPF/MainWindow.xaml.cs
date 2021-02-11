@@ -167,5 +167,16 @@ namespace ProductRevisionAppWPF
             }
 
         }
+
+        private void ButtonSendComment_Click(object sender, RoutedEventArgs e)
+        {
+            var selectectTask = _instance.SelectedRevisionTask;
+
+            if (selectectTask != null)
+            {
+                _instance.AddCommentToTaskID(selectectTask.TaskID, TextBoxCommentInput.Text);
+                RetrieveCommentsForTask();
+            }
+        }
     }
 }
