@@ -38,8 +38,12 @@
                     </DockPanel>
                 </StackPanel>
             </Border>
-
         </DataTemplate>
+
+        <!--<Style TargetType="ComboBoxItem">
+            <Setter Property="Foreground" Value="#FF673AB7"/>
+        </Style>-->
+        
     </Window.Resources>
 
     <!--Body-->
@@ -72,8 +76,21 @@
                     <materialDesign:PackIcon Kind="Logout" Height="30" Width="30"/>
                 </Button>
             </StackPanel>
+
+            <StackPanel HorizontalAlignment="Left">
+                
+                <Label x:Name="LabelRevisionSelected" Content="Select Revision" HorizontalAlignment="Left" VerticalAlignment="Center" Width="auto" Foreground="#DDFFFFFF" FontSize="20" Margin="10,0,0,0"/>
+                
+                <ComboBox x:Name="ComboBoxRevisions" Text="Revisions" 
+                                      IsEditable="true"  IsReadOnly="true" HorizontalAlignment="Left" 
+                                      Margin="5,0,0,0" Foreground="LightSeaGreen"  Background="#FF673AB7"
+                                      SelectedValuePath="Key" 
+                                      DisplayMemberPath="Value" 
+                                      SelectionChanged="ComboBoxRevisions_SelectionChanged" FontSize="15" Width="150"/>
+            </StackPanel>
+            
             <Label x:Name="LabelProjectSelected" Content="No project Selected" HorizontalAlignment="Center" VerticalAlignment="Center" Width="auto" Foreground="#DDFFFFFF" FontSize="20"/>
-            <Label x:Name="LabelRevisionSelected" Content="Select Revision" HorizontalAlignment="Left" VerticalAlignment="Center" Width="auto" Foreground="#DDFFFFFF" FontSize="20" Margin="10,0,0,0"/>
+            
         </Grid>
 
         <!--Left bar-->
@@ -136,18 +153,19 @@
                     <!--sidebar on main bar-->
                     <Grid Grid.Row="0" Grid.Column="0">
                         <StackPanel Width="200" HorizontalAlignment="Left" Background="#FF472076">
+                            
+                            <DatePicker x:Name="DatePickerNewRevisionDeadline" Margin="0,20,0,0" Foreground="Black" Background="#FFF9F8F8" Width="auto"></DatePicker>
+                            
+                            <Button x:Name="ButtonAddRevision" Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Click="ButtonAddRevision_Click">
+                                <StackPanel Orientation="Horizontal" Height="30" HorizontalAlignment="Left">                                 
+                                    <TextBlock Text="Add Revision" Margin="0 0" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"/>
+                                </StackPanel>
+                            </Button>
 
-                            <ComboBox x:Name="ComboBoxRevisions" Text="Select Revision" 
-                                      IsEditable="true"  IsReadOnly="true" HorizontalAlignment="Center" 
-                                      Margin="0,5,0,0" Foreground="black"  Background="white"
-                                      SelectedValuePath="Key" 
-                                      DisplayMemberPath="Value" 
-                                      SelectionChanged="ComboBoxRevisions_SelectionChanged" FontSize="15" Width="150"/>
-
-                            <Button Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
+                            <Button Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Margin="0,15">
                                 <StackPanel Orientation="Horizontal" Height="30">
                                     <materialDesign:PackIcon Kind="Plus" Width="20" Height="20" VerticalAlignment="Center" Foreground="white"/>
-                                    <TextBlock Text="Add Task" Margin="20 0" FontSize="15" VerticalAlignment="Center" Foreground="White"/>
+                                    <TextBlock Text="Add Task" Margin="20, 0" FontSize="15" VerticalAlignment="Center" Foreground="White"/>
                                 </StackPanel>
                             </Button>
                         </StackPanel>

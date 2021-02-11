@@ -239,5 +239,10 @@ namespace ProductRevisionAppWPF
             loginWindow.Show();
             this.Close();
         }
+
+        private void ButtonAddRevision_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
