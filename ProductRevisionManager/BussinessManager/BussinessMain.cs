@@ -12,9 +12,16 @@ namespace BussinessManager
             Console.WriteLine("Product Revision Management App");
 
             /* Generates user, project */
-            GenerateUserTestData();
-            GenerateProjectTestData();
-            AssignUsersToProjects();
+            if (!HasTestData())
+            {
+                GenerateUserTestData();
+                GenerateProjectTestData();
+                AssignUsersToProjects();
+            }
+            else
+            {
+                Console.WriteLine("Already have test data");
+            }
         }
 
         public static void GenerateUserTestData()
@@ -47,6 +54,8 @@ namespace BussinessManager
 
         public static void AssignUsersToProjects()
         {
+            Console.WriteLine("Assiging projects");
+
             using (var db = new MonokayuDbContext())
             {
                 // locating test data ids
@@ -71,7 +80,18 @@ namespace BussinessManager
 
                 db.SaveChanges();
             }
-            
+
+            Console.WriteLine("You can close this console now and proceed to wpf app");
+        }
+
+        public static bool HasTestData()
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                var user = db.Users2.Where(u => u.firstName == "Lorenzo").Where(u => u.lastName == "Bulosan").FirstOrDefault();
+
+                return (user.firstName=="Lorenzo");
+            }
         }
 
     }
