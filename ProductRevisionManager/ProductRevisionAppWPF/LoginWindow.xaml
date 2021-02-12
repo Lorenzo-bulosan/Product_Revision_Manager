@@ -23,7 +23,7 @@
                 <Image Source="/Monokayu1-Transparent.png" ></Image>
                 <TextBox x:Name="TextName" Background="GhostWhite" materialDesign:HintAssist.Hint="Name"></TextBox>
                 <TextBox x:Name="TextSurname" Background="GhostWhite" materialDesign:HintAssist.Hint="Surname"></TextBox>
-                <TextBox x:Name="TextPassword" Background="GhostWhite" materialDesign:HintAssist.Hint="Password"></TextBox>
+                <PasswordBox x:Name="TextPassword" Background="GhostWhite" materialDesign:HintAssist.Hint="Password"></PasswordBox>
                 <Button x:Name="ButtonLogin" Click="ButtonLogin_Click">Login</Button>
             </StackPanel>
         </Border>
