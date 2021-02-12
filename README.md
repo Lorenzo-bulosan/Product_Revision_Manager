@@ -2,7 +2,7 @@
 
 Tier 3 app in WPF with internal SQL server that aims to solve the communication between clients and suppliers in an organized manner.
 
-![](E:\SPARTA_GLOBAL\Exercises\Product_Revision_Manager\ProductRevisionManager\Images\LoginExample.JPG)
+![](ProductRevisionManager\Images\LoginExample.JPG)
 
 ### Table of contents :star:
 
