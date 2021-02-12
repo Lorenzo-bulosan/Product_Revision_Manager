@@ -18,28 +18,60 @@ namespace BussinessManager
             SelectedRevisionTask = (RevisionTask)ListBoxSelectedItem;
         }
 
-        public List<RevisionTask> GetTasksFromRevisionID(int revisionId)
+        // Retrieve user object
+        public User2 GetUserInformationFromUserID(int userID)
         {
             using (var db = new MonokayuDbContext())
             {
-                var res = db.RevisionTasks.Where(r => r.RevisionID == revisionId).ToList();
-                return res;
+                var user = db.Users2.Where(c => c.UserID == userID).FirstOrDefault();
+
+                return user;
             }
         }
 
- 
-        public Dictionary<int,DateTime> GetRevisionsFromProject(int projectID)
+        // Obtain projects given a userID and return dictionary of projectID, projectName
+        public Dictionary<int, string> GetProjectsFromUserID(int userID)
         {
             using (var db = new MonokayuDbContext())
             {
-                var res = from r in db.Revisions 
+                var commentsFromUser = from u in db.Users2
+                                       join up in db.UserProjects on u.UserID equals up.userID
+                                       join p in db.Projects2 on up.projectID equals p.ProjectID
+                                       where u.UserID == userID
+                                       select new
+                                       {
+                                           p.ProjectID,
+                                           p.projectName
+                                       };
+
+                return commentsFromUser.ToDictionary(p => p.ProjectID, p => p.projectName);
+            }
+        }
+
+        // Inserts a revision given a project
+        public void GenerateRevisionForProjectID(int projectId, DateTime deadline)
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                db.Add(new Revision() { deadline = deadline, ProjectID = projectId });
+                db.SaveChanges();
+            }
+        }
+
+        // Obtain all revisions given a projectID and return dictionary of revisionID,revisionDeadline
+        public Dictionary<int, DateTime> GetRevisionsFromProject(int projectID)
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                var res = from r in db.Revisions
                           where r.Project.ProjectID == projectID
                           select r;
-                return res.ToDictionary(r=>r.RevisionID, r=>r.deadline);
+                return res.ToDictionary(r => r.RevisionID, r => r.deadline);
             }
         }
 
-        public void AddTaskToRevision( int revisionID, string title, string description, int urgency, int progress=0 ,string url="")
+        // Insert a task given a revisionID
+        public void AddTaskToRevision(int revisionID, string title, string description, int urgency, int progress = 0, string url = "")
         {
             using (var db = new MonokayuDbContext())
             {
@@ -57,6 +89,17 @@ namespace BussinessManager
             }
         }
 
+        // Obtain tasks given a revisionID and return List of Task objects
+        public List<RevisionTask> GetTasksFromRevisionID(int revisionId)
+        {
+            using (var db = new MonokayuDbContext())
+            {
+                var res = db.RevisionTasks.Where(r => r.RevisionID == revisionId).ToList();
+                return res;
+            }
+        }
+
+        // Updates task given taskID
         public void UpdateRevisionTask(int taskID, string title, string description, int urgency, int progress, string url)
         {
             using (var db = new MonokayuDbContext())
@@ -73,6 +116,28 @@ namespace BussinessManager
             }
         }
 
+        // Inserts a comment to an existing task
+        public void AddCommentToTaskID(int taskID, string comment, string senderName)
+        {
+
+            if (comment != "")
+            {
+                using (var db = new MonokayuDbContext())
+                {
+                    db.Add(new TaskComment
+                    {
+                        TaskID = taskID,
+                        comment = comment,
+                        senderName = senderName,
+                        time = DateTime.Now
+                    }); ;
+
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        // Obtains all comments given a taskID and returns a list of comments object
         public List<TaskComment> RetrieveCommentsFromTaskID(int taskID)
         {
             using (var db = new MonokayuDbContext())
@@ -83,6 +148,7 @@ namespace BussinessManager
             }
         }
 
+        // Obtains all comments given userID
         public IEnumerable<Object> RetrieveCommentsOfTaskFromUser(int userID, int taskId)
         {
             using (var db = new MonokayuDbContext())
@@ -105,63 +171,6 @@ namespace BussinessManager
                                        };
 
                 return commentsFromUser.ToList();
-            }
-        }
-
-        public void AddCommentToTaskID(int taskID, string comment, string senderName)
-        {
-
-            if(comment != "")
-            {
-                using (var db = new MonokayuDbContext())
-                {
-                    db.Add(new TaskComment
-                    {
-                        TaskID = taskID,
-                        comment = comment,
-                        senderName = senderName,
-                        time = DateTime.Now
-                    }); ;
-
-                    db.SaveChanges();
-                }
-            }
-        }
-
-        public Dictionary<int, string> GetProjectsFromUserID(int userID)
-        {
-            using (var db = new MonokayuDbContext())
-            {
-                var commentsFromUser = from u in db.Users2
-                                       join up in db.UserProjects on u.UserID equals up.userID
-                                       join p in db.Projects2 on up.projectID equals p.ProjectID
-                                       where u.UserID == userID
-                                       select new
-                                       {
-                                           p.ProjectID,
-                                           p.projectName
-                                       };
-
-                return commentsFromUser.ToDictionary(p => p.ProjectID, p => p.projectName);
-            }
-        }
-
-        public User2 GetUserInformationFromUserID(int userID)
-        {
-            using (var db = new MonokayuDbContext())
-            {
-                var user = db.Users2.Where(c => c.UserID == userID).FirstOrDefault();
-
-                return user;
-            }
-        }
-
-        public void GenerateRevisionForProjectID(int projectId, DateTime deadline)
-        {
-            using (var db = new MonokayuDbContext())
-            {
-                db.Add(new Revision() { deadline = deadline, ProjectID = projectId });
-                db.SaveChanges();
             }
         }
     }
