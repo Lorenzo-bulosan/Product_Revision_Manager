@@ -2,17 +2,25 @@
 
 Tier 3 app in WPF with internal SQL server that aims to solve the communication between clients and suppliers in an organized manner.
 
-### Table of contents
+![](E:\SPARTA_GLOBAL\Exercises\Product_Revision_Manager\ProductRevisionManager\Images\LoginExample.JPG)
+
+### Table of contents :star:
 
 2. Project Goal
 2. Installation Manual
-6. Sprint Retrospective
+4. Example Code
+5. Sprint Retrospective
+6. Kanban board
 
 ### Project Goal
 
 The goal is the project is to create an App in WPF to manage the communication of product revisions between clients and suppliers
 
-#### Installation manual
+**DOD** :100:
+
+The project will be deemed as done when the App to manage revision is functional and implements CRUD operations on at least 2 link tables and implements WPF frontend.
+
+#### Installation manual :page_facing_up:
 
 **Pre-requisites**
 
@@ -24,6 +32,7 @@ You can open the solution with Visual Studio and make sure you have the followin
 - Entity Framework Core
 - Entity Framework Tools
 - Entity Framework SQL Server
+- Material Design UI library
 
 **Step 1** Set up project
 
@@ -65,7 +74,34 @@ Test data login credentials:
 * surname = Bulosan
 * password = 12345
 
-### Sprint Retrospectives
+### Example Code
+
+**Method for retrieving projects assigned to a user using a joining table**
+
+``` c#
+// Obtain projects given a userID and return dictionary of projectID, projectName
+public Dictionary<int, string> GetProjectsFromUserID(int userID)
+{
+    using (var db = new MonokayuDbContext())
+    {
+        var commentsFromUser = from u in db.Users2
+            join up in db.UserProjects on u.UserID equals up.userID
+            join p in db.Projects2 on up.projectID equals p.ProjectID
+            where u.UserID == userID
+            select new
+        {
+            p.ProjectID,
+            p.projectName
+        };
+
+        return commentsFromUser.ToDictionary(p => p.ProjectID, p => p.projectName);
+    }
+}
+```
+
+Method developed to query two tables with a many to many relationship over joining table. The method returns a dictionary and it is used to populate a combo box that has to contain a selection of available projects for that specific user. Another user should be able to enter the same project and a user can have many projects therefore it is important that the two models User/Projects have to be related in a many-to-many relationship.
+
+### Sprint Retrospectives :eye_speech_bubble:
 
 **Sprint 1** (05/02/2021-09/02/2021)
 
@@ -92,4 +128,44 @@ The test data (Task for a revision) are displayed using a template. A way to cha
   - Write documentation more often
   - Clean code from test methods
 
+**Sprint 2 **(09/02/2021-11/02/2021)
 
+*<u>Goal</u>*
+
+The goal for this sprint was to design a database was to create the UI for adding tasks and developing the methods for updating the database the correct tables. another goal was to leave ready the UI for creating comments and adding revisions but no methods behind and applying the UI library Theme called Material Design.
+
+The goal for the sprint was achieved and the UI theme was installed, Not all test were implemented and a blocker was that I wanted the test data to be erased so after inserting and deleting the ID counter would still go up and I did not want to end up with large values after deleting the table so a lot of time was given to find a way to delete the test data when doing tests.
+
+*<u>Retrospective</u>*
+
+- What worked well?
+  - Creating UI as well as the functionality together allows for progress on both ends
+  - UI library speeds up the design as it already looks good out of the box with minimal change in styling
+- What did not work well?
+  - Getting stuck on finding how to remove test data and leave the database a somewhat cleaner spent too much time while I could have done more tests instead of halting the tests.
+- What actions can I take to improve the process going forward?
+  - Prioritizing the important part which is the tests instead of removing the test data which although important it is less effective use of my time.
+
+**Sprint 3 **(11/02/2021-12/02/2021)
+
+*<u>Goal</u>*
+
+The goal for this sprint was to implement the methods that I left the UI ready for (updating, comments and adding revisions) as well as making a simple login page with no registration and complete the unit tests
+
+The goal for the sprint was achieved and methods were implemented for updating tasks, adding comments and a simple login. There was also minor UI changes and handling data from the backend to UI and completed the unit tests.
+
+It was also achieve writing methods for generating test data for when forking this repository (See instructions on previous section).
+
+*<u>Retrospective</u>*
+
+- What worked well?
+  - Having set up the UI yesterday meant that I could focus on functionality as I already seen the user experience.
+  - Generating test data for for empty databases allows to not having to worry of always setting up the database (instructions in the above sections)
+- What did not work well?
+  - Having to change one table relationship to many-to-many could have been done earlier in the start when designing, this took a fair amount of time to change so that I could achieve the functionality needed.
+- What actions can I take to improve the process going forward?
+  - Revise the database design and revise it again for the future
+
+#### Kanban board
+
+The board can be seen if navigating to the tab "Projects" and the state of each board can be seen under the folder "Images"
