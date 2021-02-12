@@ -6,8 +6,6 @@ Tier 3 app in WPF with internal SQL server that aims to solve the communication 
 
 2. Project Goal
 2. Installation Manual
-4. Feature Description
-5. Examples
 6. Sprint Retrospective
 
 ### Project Goal
@@ -16,7 +14,9 @@ The goal is the project is to create an App in WPF to manage the communication o
 
 #### Installation manual
 
-Download the solution "[ProductRevisionManager.sln](https://github.com/Lorenzo-bulosan/Product_Revision_Manager/blob/master/ProductRevisionManager/ProductRevisionManager.sln)" 
+**Pre-requisites**
+
+Download the repository 
 
 You can open the solution with Visual Studio and make sure you have the following downloaded using Nugget package manager:
 
@@ -25,9 +25,45 @@ You can open the solution with Visual Studio and make sure you have the followin
 - Entity Framework Tools
 - Entity Framework SQL Server
 
-#### Demo of features
+**Step 1** Set up project
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dapibus, enim eget sollicitudin lobortis, sapien nunc facilisis mi, in accumsan lacus turpis non velit. Duis venenatis nisi vitae erat imperdiet, nec aliquam nulla viverra. Vivamus ut consectetur massa. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec faucibus commodo quam, ac placerat risus euismod a. In non scelerisque dolor, id efficitur est. Cras porttitor cursus purus porta venenatis. Ut facilisis blandit nisi, ut luctus turpis accumsan a. Morbi ac orci suscipit, tristique ex vitae, placerat purus.
+Open Visual Studio into the solution "ProductRevisionManager.sln"
+
+**Step 2** Migrate tables
+
+Open PowerShell on Visual Studio and apply migrations 
+
+* Add-Migration MigrationNameHere
+
+* Update-Database
+
+These commands will create a database called Monokayu and tables derived from the models
+
+**Step 3** Generate test data
+
+Run the business layer main method i.e. Change the dropdown box to "BussinessManager" and run console application
+
+* This will generate Test data
+  * Users
+    * Lorenzo Bulosan
+    * Cathy French
+    * Martin Beard
+  * Projects
+    * Calculator
+    * Radio
+    * Revision Manager
+
+**Step 4** WPF app
+
+Run the WPF app by changing the dropdown box to select "ProductRevisionAppWPF" and run console application
+
+You can now login with one of the 3 users described on Step 3
+
+Test data login credentials:
+
+* name = Lorenzo
+* surname = Bulosan
+* password = 12345
 
 ### Sprint Retrospectives
 
@@ -57,5 +93,3 @@ The test data (Task for a revision) are displayed using a template. A way to cha
   - Clean code from test methods
 
 
-
- 
