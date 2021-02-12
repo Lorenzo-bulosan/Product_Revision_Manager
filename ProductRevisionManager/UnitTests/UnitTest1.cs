@@ -3,6 +3,7 @@ using BussinessManager;
 using DataAndModels;
 using System.Linq;
 using System;
+using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 
 namespace UnitTests
@@ -45,6 +46,12 @@ namespace UnitTests
                 _projectIdToTest = projectID;
                 db.SaveChanges();
             }
+
+            //using (var db = new MonokayuDbContext())
+            //{
+            //    db.Add(new Revision() { ProjectID = _projectIdToTest, deadline = DateTime.Now });
+            //    db.SaveChanges();
+            //}
         }
 
         [Test]
@@ -85,8 +92,8 @@ namespace UnitTests
         [Test]
         public void RetrivingRevisionFromProjectThatDoesNotExistReturnsEmpty()
         {
-            var revisions =  _revisionManager.GetRevisionsFromProject(_projectIdToTest);
-            Assert.AreEqual(revisions.Count(),0);
+            var revisions = _revisionManager.GetRevisionsFromProject(_projectIdToTest);
+            Assert.AreEqual(revisions.Count(), 0);
         }
 
         [Test]
@@ -105,21 +112,65 @@ namespace UnitTests
             Assert.AreEqual(revisions.Count()+1, revisionsAfter.Count());
         }
 
-        //[Test]
-        //public void AddingAtaskToArevisionIncreasesNumberOfTasksByOne()
-        //{
-        //    // generate revision first
+        [Test]
+        public void AddingAtaskToArevisionIncreasesNumberOfTasksByOne_()
+        {
+            // generate revision first and get id
+            _revisionManager.GenerateRevisionForProjectID(_projectIdToTest, DateTime.Now);
+            Dictionary<int, DateTime> revisionInfo = (Dictionary<int, DateTime>)_revisionManager.GetRevisionsFromProject(_projectIdToTest);
+            int revisionId = revisionInfo.FirstOrDefault().Key;
 
-        //    using (var db = new MonokayuDbContext())
-        //    {
-        //        var numberOfTasksBefore = db.RevisionTasks.Count();
-        //        _revisionManager.AddTaskToRevision();
-        //        var numberOfTasksAfter = db.RevisionTasks.Count();
+            // now add task to revision
+            using (var db = new MonokayuDbContext())
+            {
+                _revisionManager.AddTaskToRevision(revisionId, "Title test", "Description Test", 0, 1, "monokayu.com");
+                int countBefore = db.RevisionTasks.Where(r => r.RevisionID == revisionId).Count();
+                _revisionManager.AddTaskToRevision(revisionId, "Title test", "Description Test", 0, 1, "monokayu.com");
+                int countAfter = db.RevisionTasks.Where(r => r.RevisionID == revisionId).Count();
 
-        //        Assert.AreEqual(numberOfTasksBefore + 1, numberOfTasksAfter);
-        //    }
-        //}
+                Assert.AreEqual(countBefore+1, countAfter);
+            }
+        }
 
+        [Test]
+        [TestCase ("Title test", "Description Test", 0, 1, "monokayu.com", "Title test")]
+        [TestCase ("Title test1", "Description Test", 0, 1, "monokayu.com", "Title test1")]
+        [TestCase ("Title test2", "Description Test", 0, 1, "monokayu.com", "Title test2")]
+        public void WhenRetrievingTaskFromRevissionAndAskingForTitleReturnsCorrectAnswer(string title, string description, int urgency, int progress, string url, string correctTitle)
+        {
+            // generate revision first and get id
+            _revisionManager.GenerateRevisionForProjectID(_projectIdToTest, DateTime.Now);
+            Dictionary<int, DateTime> revisionInfo = (Dictionary<int, DateTime>)_revisionManager.GetRevisionsFromProject(_projectIdToTest);
+            int revisionId = revisionInfo.FirstOrDefault().Key;
+
+            // generate task for testing
+            _revisionManager.AddTaskToRevision(revisionId, title, description, urgency, progress, url);
+
+            // retrieve the task information and assert
+            var taskFromRevision = _revisionManager.GetTasksFromRevisionID(revisionId).FirstOrDefault();
+            Assert.AreEqual(taskFromRevision.title, correctTitle);
+        }
+
+        [Test]
+        [TestCase("Original", "UpdatedTitle", "UpdatedTitle")]
+        [TestCase("Original123", "UpdatedTitle", "UpdatedTitle")]
+        public void WhenUpdatingTaskCheckThatItIsCorrectlyUpdated(string title, string titleUpdated,string correctTitle)
+        {
+            // generate revision first and get id
+            _revisionManager.GenerateRevisionForProjectID(_projectIdToTest, DateTime.Now);
+            Dictionary<int, DateTime> revisionInfo = (Dictionary<int, DateTime>)_revisionManager.GetRevisionsFromProject(_projectIdToTest);
+            int revisionId = revisionInfo.FirstOrDefault().Key;
+
+            // generate task for testing
+            _revisionManager.AddTaskToRevision(revisionId, title, "description", 0, 1, "google");
+            int taskID = _revisionManager.GetTasksFromRevisionID(revisionId).FirstOrDefault().TaskID;
+
+            // update the task with new title and assert
+            _revisionManager.UpdateRevisionTask(taskID, titleUpdated, "description", 0, 1, "google");
+            string resultTitle = _revisionManager.GetTasksFromRevisionID(revisionId).FirstOrDefault().title;
+
+            Assert.AreEqual(resultTitle, correctTitle);
+        }
 
         [TearDown]
         public void TearDown()
