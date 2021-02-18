@@ -20,7 +20,7 @@ namespace BussinessManager
                      .Where(u=> u.password == password)
                      .FirstOrDefault();
                      
-
+                // ternary if
                 if (userInfo != null)
                 {
                     return userInfo.UserID;

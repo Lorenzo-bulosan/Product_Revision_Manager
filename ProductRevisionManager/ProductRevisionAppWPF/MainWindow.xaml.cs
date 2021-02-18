@@ -20,6 +20,7 @@ namespace ProductRevisionAppWPF
 
     public partial class MainWindow : Window
     {
+        // in dev
         private int _userId = 1; 
         private string _firstName;
         private string _lastName;

@@ -5,13 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAndModels;
 using Microsoft.EntityFrameworkCore;
+using DataAndModels.Services;
 
 namespace BussinessManager
 {
     public class RevisionManager
     {
-        
+        private IRevisionService _service;
         public RevisionTask SelectedRevisionTask { get; set; }
+
+        public RevisionManager()
+        {
+            _service = new RevisionService();
+        }
 
         public void SetSelectedRevisionTask(Object ListBoxSelectedItem)
         {
@@ -21,12 +27,7 @@ namespace BussinessManager
         // Retrieve user object
         public User2 GetUserInformationFromUserID(int userID)
         {
-            using (var db = new MonokayuDbContext())
-            {
-                var user = db.Users2.Where(c => c.UserID == userID).FirstOrDefault();
-
-                return user;
-            }
+            return _service.GetUser(userID);
         }
 
         // Obtain projects given a userID and return dictionary of projectID, projectName
@@ -34,7 +35,7 @@ namespace BussinessManager
         {
             using (var db = new MonokayuDbContext())
             {
-                var commentsFromUser = from u in db.Users2
+                var projectsFromUser = from u in db.Users2
                                        join up in db.UserProjects on u.UserID equals up.userID
                                        join p in db.Projects2 on up.projectID equals p.ProjectID
                                        where u.UserID == userID
@@ -44,7 +45,7 @@ namespace BussinessManager
                                            p.projectName
                                        };
 
-                return commentsFromUser.ToDictionary(p => p.ProjectID, p => p.projectName);
+                return projectsFromUser.ToDictionary(p => p.ProjectID, p => p.projectName);
             }
         }
 
