@@ -1,15 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30907.101
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BussinessManager", "BussinessManager\BussinessManager.csproj", "{AD3873C1-8B91-42B8-BFA0-C92C27898D43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BussinessManager", "BussinessManager\BussinessManager.csproj", "{AD3873C1-8B91-42B8-BFA0-C92C27898D43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{6E7D0975-DCDD-43A0-AB9D-29BAF6350811}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{6E7D0975-DCDD-43A0-AB9D-29BAF6350811}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductRevisionAppWPF", "ProductRevisionAppWPF\ProductRevisionAppWPF.csproj", "{29B6B574-9E44-4E9E-AFD2-6E08AF72B8DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductRevisionAppWPF", "ProductRevisionAppWPF\ProductRevisionAppWPF.csproj", "{29B6B574-9E44-4E9E-AFD2-6E08AF72B8DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAndModels", "DataAndModels\DataAndModels.csproj", "{4496600D-7324-4812-A0FD-8E39EB1EC8AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAndModels", "DataAndModels\DataAndModels.csproj", "{4496600D-7324-4812-A0FD-8E39EB1EC8AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebUI", "WebUI\WebUI.csproj", "{315D406B-FE42-4E39-8681-2249FCF76C22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{4496600D-7324-4812-A0FD-8E39EB1EC8AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4496600D-7324-4812-A0FD-8E39EB1EC8AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4496600D-7324-4812-A0FD-8E39EB1EC8AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{315D406B-FE42-4E39-8681-2249FCF76C22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{315D406B-FE42-4E39-8681-2249FCF76C22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{315D406B-FE42-4E39-8681-2249FCF76C22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{315D406B-FE42-4E39-8681-2249FCF76C22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
