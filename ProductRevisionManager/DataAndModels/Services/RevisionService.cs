@@ -15,50 +15,52 @@ namespace DataAndModels.Services
             _db = new MonokayuDbContext();
         }
 
+        public void AddCommentToTaskID(int taskID, string comment, string senderName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddTaskToRevision(int revisionID, string title, string description, int urgency, int progress = 0, string url = "")
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GenerateRevisionForProjectID(int projectId, DateTime deadline)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Dictionary<int, string> GetProjectsFromUserID(int userID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Dictionary<int, DateTime> GetRevisionsFromProject(int projectID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<RevisionTask> GetTasksFromRevisionID(int revisionId)
+        {
+            throw new NotImplementedException();
+        }
+
         public User2 GetUser(int userID)
         {
             return _db.Users2.Where(c => c.UserID == userID).FirstOrDefault();
         }
 
-        public Project2 GetProjectFromUser(int userID)
+        public List<TaskComment> RetrieveCommentsFromTaskID(int taskID)
         {
             throw new NotImplementedException();
         }
 
-        public void AddRevisionToProject()
-        {
-            throw new NotImplementedException();
-        }
-        public void GetRevisionFromProject()
+        public IEnumerable<object> RetrieveCommentsOfTaskFromUser(int userID, int taskId)
         {
             throw new NotImplementedException();
         }
 
-        public void AddTaskToRevision()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<RevisionTask> GetTaskFromRevision()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateTask()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddCommentToTask()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<TaskComment> RetrieveCommentsFromUser()
-        {
-            throw new NotImplementedException();
-        }
-        public void SaveRevisionChanges()
+        public void UpdateRevisionTask(int taskID, string title, string description, int urgency, int progress, string url)
         {
             throw new NotImplementedException();
         }
