@@ -14,21 +14,21 @@ export const theme = createTheme({
     MuiTypography: {
       styleOverrides: {
         body1: {
-          fontSize: 15,
-          fontWeight: 400,
+          fontSize: 5,
+          fontWeight: 200,
         },
         caption: {
-          fontSize: 12,
-          fontWeight: 400,
+          fontSize: 2,
+          fontWeight: 200,
         },
         h1: {
-          fontSize: 35,
-        },
-        h2: {
           fontSize: 25,
         },
+        h2: {
+          fontSize: 15,
+        },
         h5: {
-          fontSize: 16,
+          fontSize: 6,
         },
       },
     },

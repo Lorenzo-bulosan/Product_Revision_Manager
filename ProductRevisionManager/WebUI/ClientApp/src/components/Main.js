@@ -18,7 +18,7 @@ import Tasks from "../components/Tasks";
 
 export function Main() {
     return (
-        <Box height={"100vh"} overflow="hidden" bgcolor={ui_colors.primary}>
+        <Box height={"100vh"} width={"100vw"} overflow="hidden" bgcolor={ui_colors.primary}>
             {/* nav */}
             <Stack
                 direction={"row"}

@@ -8,8 +8,15 @@ export class Layout extends Component {
   render () {
     return (
       <div>
-        <NavMenu />
-        <Container>
+            <NavMenu style={{ margin: 0 }} />
+            <Container width={"100vw"}
+            style={
+            {
+                margin: 0,
+                padding: 0,
+                //border: '2px solid red'
+            }
+        }>
           {this.props.children}
         </Container>
       </div>
