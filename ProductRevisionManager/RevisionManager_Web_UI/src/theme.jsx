@@ -4,7 +4,7 @@ export const ui_colors = {
   primary: "#333333",
 };
 
-export const theme = createTheme({
+export const DianaTheme = createTheme({
   palette: {
     primary: {
       main: "#333333",

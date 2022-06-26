@@ -10,14 +10,18 @@ import {
     TextField,
     Button,
 } from "@mui/material";
-import { ui_colors } from "./theme";
+import { ui_colors, theme } from "./theme";
 import Title from "../components/Title";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import Tasks from "../components/Tasks";
+import { ThemeProvider } from "@emotion/react";
+
+const MainTheme = theme;
 
 export function Main() {
     return (
+        <ThemeProvider theme={MainTheme}>
         <Box height={"100vh"} width={"100vw"} overflow="hidden" bgcolor={ui_colors.primary}>
             {/* nav */}
             <Stack
@@ -30,7 +34,7 @@ export function Main() {
             >
                 <Stack spacing={2} direction={"row"} alignItems={"center"} color="#fff">
                     <Icon fontSize={40} icon="icon-park-outline:oval-love-two" />
-                    <Typography variant="h1">Calculator</Typography>
+                    <Typography variant="h1">Some project</Typography>
                     <Icon icon="ep:arrow-down-bold" />
                 </Stack>
                 <Stack spacing={2} direction={"row"} alignItems={"center"} color="#fff">
@@ -43,7 +47,8 @@ export function Main() {
                 <Tasks />
                 <Title />
             </Grid>
-        </Box>
+            </Box>
+         </ThemeProvider>
     );
 }
 
