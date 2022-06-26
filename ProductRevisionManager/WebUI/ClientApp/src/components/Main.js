@@ -1,5 +1,5 @@
 import logo from "./logo.svg";
-import "../Main.css";
+import "./Main.css";
 import {
     Box,
     Stack,

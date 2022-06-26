@@ -14,7 +14,6 @@ export class Layout extends Component {
             {
                 margin: 0,
                 padding: 0,
-                //border: '2px solid red'
             }
         }>
           {this.props.children}
